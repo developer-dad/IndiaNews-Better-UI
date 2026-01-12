@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import CurrentNews from "./components/CurrentNews";
 import NewsItem from "./components/NewsItem";
 import Toast from "./components/Toast";
+import News from "./components/News";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
 
         <NavBar />
         <CurrentNews />
-        <NewsItem />
+        {/* <NewsItem /> */}
+        <News/>
         <Toast/>
       
       </div>

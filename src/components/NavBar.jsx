@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/IndiaNews.png";
 import { FaCaretDown } from "react-icons/fa6";
 import { CgSearch } from "react-icons/cg";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { useState, useEffect, useRef } from "react";
 
 function NavBar() {
@@ -33,16 +34,19 @@ function NavBar() {
 
   return (
     <div className="select-none">
-      <div className="z-50 bg-white/25 border mt-12 border-white/30 mx-28 rounded-xl flex justify-between px-5 backdrop-blur-2xl">
-        <div className="flex items-center p">
-          <img src={logo} alt="Logo" className="h-16 " />
-          <p className="text-white text-2xl">
+      <div className="z-50 bg-white/25 border border-white/30 rounded-xl flex justify-between backdrop-blur-2xl mt-8 mx-8 px-1 md:mx-28 md:mt-12">
+        {/* LOGO and TEXT */}
+        <div className="flex items-center">
+          <img src={logo} alt="Logo" className="h-14 md:h-20" />
+          <p className="text-white text-2xl md:text-3xl">
             India<span className="text-[#0181EB]">News</span>
           </p>
         </div>
-        <div ref={dropdownRef} className="flex items-center gap-5">
+
+        {/* DROPDOWNS */}
+        <div ref={dropdownRef} className="gap-5 hidden md:block">
           <div
-            className={`text-white text-[18px] border px-1 py-1 rounded-full shadow-xl ${
+            className={`flex items-center text-white text-[18px] border px-1 py-1 rounded-full shadow-xl ${
               openCountry ? "border-white" : "shadow-white/25 border-white/60"
             }`}
             onClick={dropDownCountry}
@@ -120,15 +124,24 @@ function NavBar() {
             </div>
           </div>
         </div>
-        <div className="border border-white/40 flex my-3 mr-4 rounded-full px-3 py-1 text-white items-center gap-2 focus-within:border-white/70 focus-within:bg-white/10 transition">
-          <div>
-            <CgSearch size={27} />
+
+        {/* SEARCH */}
+        <div className="flex gap-1.5 mx-2">
+          <div className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 flex items-center justify-center rounded-full text-white my-2 mx-0.5 px-1.5 py-1.5">
+            <div>
+              <CgSearch className="size-7" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search..."
+              className="bg-transparent outline-none border-none focus:ring-0 w-full placeholder-white/60 rounded-full px-2 hidden"
+            />
           </div>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent outline-none border-none focus:ring-0 w-full placeholder-white/60 rounded-full px-2"
-          />
+
+          {/* MENU */}
+          <div className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 rounded-l-3xl rounded-r-xl text-white my-2 mx-0.5 pl-2 pr-0.5 py-1.5">
+            <HiOutlineMenuAlt3 className="size-7" />
+          </div>
         </div>
       </div>
     </div>

@@ -2,12 +2,12 @@ import React from "react";
 
 function CurrentNews() {
   return (
-    <div className="overflow-hidden mt-6 mx-28 relative select-none">
-      <div className="h-20 w-50 bg-white rounded-full blur-2xl absolute left-9/12"></div>
-      <div className="bg-gray-600/30 border border-white/30 rounded-xl h-16 text-white text-2xl font-bold flex justify-center items-center backdrop-blur-3xl">
+    <div className="overflow-hidden relative rounded-xl border border-white/30 select-none mt-3 mx-8 md:mx-28 md:mt-5">
+      <div className="h-20 w-50 bg-white/70 rounded-full blur-2xl absolute inset-0 left-96 md:left-9/12"></div>
+      <div className="bg-gray-600/30 text-white text-lg font-bold flex justify-center items-center backdrop-blur-3xl h-14 md:h-16 md:text-2xl">
         <p>IndiaNews - Showing General News of India.</p>
       </div>
-      <div className="h-20 w-50 bg-white rounded-full blur-2xl absolute left-96"></div>
+      <div className="h-20 w-50 bg-white/30 rounded-full blur-2xl absolute inset-0"></div>
     </div>
   );
 }
