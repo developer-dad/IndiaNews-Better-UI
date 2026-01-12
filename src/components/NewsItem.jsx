@@ -26,7 +26,7 @@ function NewsItem() {
             strengthening maritime security across key zones.
           </p>
           <div className="flex items-center justify-between">
-            <button className="flex items-center gap-1 mb-3 w-fit px-4 py-1.5 text-sm rounded-full bg-white/20 hover:bg-white/30 transition shadow-xl shadow-white/20 border border-white/20">
+            <button className="cursor-pointer flex items-center gap-1 mb-3 w-fit px-6 py-2.5 text-sm rounded-full bg-white/20 hover:bg-white/30 transition shadow-xl shadow-white/20 inset-shadow-sm inset-shadow-white/30 border border-white/20">
               Read More 
               <FaCaretRight className="size-5" />
             </button>
