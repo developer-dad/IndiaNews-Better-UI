@@ -31,6 +31,11 @@ function NavBar() {
     }
   }
 
+  const menuVibrate = () => {
+    toggleMenu();
+    vibrate();
+  }
+
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -166,10 +171,7 @@ function NavBar() {
           {/* MENU */}
           <div
             className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 rounded-l-3xl rounded-r-xl text-white my-2 mx-0.5 pl-2 pr-0.5 py-1.5 md:hidden"
-            onClick={() => {
-              toggleMenu, 
-              vibrate()
-            }}
+            onClick={menuVibrate}
           >
             <HiOutlineMenuAlt3 className="size-7" />
           </div>
