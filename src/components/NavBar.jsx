@@ -22,7 +22,13 @@ function NavBar() {
   };
 
   const toggleMenu = () => {
-    setOpenMenu(prev => !prev);
+    setOpenMenu((prev) => !prev);
+  };
+
+  const vibrate = () => {
+    if("vibrate" in navigator){
+      navigator.vibrate(50);
+    }
   }
 
   useEffect(() => {
@@ -39,11 +45,15 @@ function NavBar() {
 
   return (
     <div className="select-none">
-      <div className={`z-50 bg-white/25 border border-white/30 rounded-xl flex justify-between items-center backdrop-blur-2xl mt-5 mx-4 md:mx-28 md:mt-12 ${openMenu ? "rounded-b-sm" : ""}`}>
+      <div
+        className={`z-50 bg-white/25 border border-white/30 rounded-xl flex justify-between items-center backdrop-blur-2xl mt-5 mx-4 md:mx-28 md:mt-12 ${
+          openMenu ? "rounded-b-sm" : ""
+        }`}
+      >
         {/* LOGO and TEXT */}
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-14 md:h-20" />
-          <p className="text-white text-2xl md:text-3xl">
+          <p className="text-white text-xl md:text-3xl">
             India<span className="text-[#0181EB]">News</span>
           </p>
         </div>
@@ -142,7 +152,7 @@ function NavBar() {
 
         {/* SEARCH */}
         <div className="flex gap-1.5 mx-2 md:mx-4">
-          <div className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 flex items-center justify-center rounded-full text-white my-2 mx-0.5 px-1.5 py-1.5 md:my-5 md:px-2 md:py-1">
+          <div className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 flex items-center justify-center rounded-full text-white my-2 mx-0.5 px-1.5 pl-1 pr-2 md:my-5 md:px-2 md:py-1">
             <div>
               <CgSearch className="size-7" />
             </div>
@@ -154,71 +164,85 @@ function NavBar() {
           </div>
 
           {/* MENU */}
-          <div className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 rounded-l-3xl rounded-r-xl text-white my-2 mx-0.5 pl-2 pr-0.5 py-1.5 md:hidden"  onClick={toggleMenu}>
+          <div
+            className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 rounded-l-3xl rounded-r-xl text-white my-2 mx-0.5 pl-2 pr-0.5 py-1.5 md:hidden"
+            onClick={() => {
+              toggleMenu, 
+              vibrate()
+            }}
+          >
             <HiOutlineMenuAlt3 className="size-7" />
           </div>
         </div>
       </div>
-            <div className={`flex justify-center gap-8 items-center py-7 text-white text-xl mx-4 bg-white/40 border border-white/60 rounded-xl backdrop-blur-2xl ${openMenu ? "block rounded-t-sm" : "hidden"} transition-transform duration-1000 md:hidden`}>
-                <div className="flex items-center gap-1 pb-1 bg-black/25 border border-white/30 backdrop-blur-lg shadow-lg shadow-white/25 inset-shadow-sm inset-shadow-white/30 px-3 rounded-full" onClick={dropDownCountry}>
-                    <p className="py-1">
-                        Country
-                    </p>
-                    <FaCaretDown/>
-                </div>
-                <div className={`relative ${openCountry ? "block" : "hidden"}`}>
-                  <ul className="absolute w-32 top-7 -right-5 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      India
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      Russia
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      USA
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      Chain
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      UK
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex items-center gap-1 pb-1 bg-black/25 border border-white/30 backdrop-blur-lg shadow-lg shadow-white/25 inset-shadow-sm inset-shadow-white/30 px-3 rounded-full" onClick={dropDownCategory}>
-                    <p className="py-1">
-                        Category
-                    </p>
-                    <FaCaretDown/>
-                </div>
-                <div
-                  className={`relative ${openCategory ? "block" : "hidden"}`}
-                >
-                  <ul className="absolute w-44 top-7 -right-5 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Top
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Business
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Entertainment
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Health
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Science
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Sports
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Techhnology
-                    </li>
-                  </ul>
-                </div>
-            </div>
+      <div
+        className={`flex justify-center gap-8 items-center py-7 text-white text-xl mx-4 bg-white/40 border border-white/60 rounded-xl backdrop-blur-2xl ${
+          openMenu ? "block rounded-t-sm" : "hidden"
+        } transition-transform duration-1000 md:hidden`}
+      >
+        <div
+          className="flex items-center gap-1 pb-1 bg-black/25 border border-white/30 backdrop-blur-lg shadow-lg shadow-white/25 inset-shadow-sm inset-shadow-white/30 px-3 rounded-full"
+          onClick={dropDownCountry}
+        >
+          <p className="py-1">Country</p>
+          <FaCaretDown />
+
+          {/* Country Mobile Dropdown */}
+          <div className={`relative ${openCountry ? "block" : "hidden"}`}>
+            <ul className="absolute w-32 top-7 -right-3 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                India
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                Russia
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                USA
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                Chain
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                UK
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          className="flex items-center gap-1 pb-1 bg-black/25 border border-white/30 backdrop-blur-lg shadow-lg shadow-white/25 inset-shadow-sm inset-shadow-white/30 px-3 rounded-full"
+          onClick={dropDownCategory}
+        >
+          <p className="py-1">Category</p>
+          <FaCaretDown />
+
+          {/* Category Mobile Dropdown */}
+          <div className={`relative ${openCategory ? "block" : "hidden"}`}>
+            <ul className="absolute w-44 top-7 -right-3 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Top
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Business
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Entertainment
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Health
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Science
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Sports
+              </li>
+              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                Techhnology
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
