@@ -9,17 +9,16 @@ function Toast() {
     const [Toast, setToast] = useState(true)
 
     const toggleToast = () => {
-        setToast(false)
         setTimeout(() => {
             setToast(false)
-        }, 3000)
+        }, 1500)
     }
 
   return (
-        <div className={`z-50 absolute inset-0 top-10 left-35 w-fit h-fit rounded-xl ${Toast ? "block" : "hidden"} md:top-14 md:left-8/12`}>
+        <div className={`z-50 absolute inset-0 top-10 left-18 w-fit h-fit rounded-xl ${Toast ? "block" : "hidden"} md:top-14 md:left-8/12`}>
             <div className='fixed flex items-center bg-black/40 border border-white/40 rounded-xl backdrop-blur-2xl inset-shadow-sm inset-shadow-white/40 shadow-2xl shadow-black/25 px-4 py-3 gap-3 md:px-8 md:py-5 md:gap-6'>
                 <FaMapMarkedAlt color='white' className='size-7 md:size-8'/>
-                <p className='text-white text-lg md:text-xl'>
+                <p className='text-white text-md md:text-xl'>
                     Country changed to India.
                 </p>
                 <IoIosClose color='white' className='bg-white/10 cursor-pointer rounded-full size-7 border border-white/25 md:border-transparent md:bg-transparent md:hover:bg-white/30 md:hover:border md:hover:border-white/50' onClick={toggleToast}/>

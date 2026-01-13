@@ -39,7 +39,7 @@ function NavBar() {
 
   return (
     <div className="select-none">
-      <div className={`z-50 bg-white/25 border border-white/30 rounded-xl flex justify-between items-center backdrop-blur-2xl mt-8 mx-8 md:mx-28 md:mt-12 ${openMenu ? "rounded-b-sm" : ""}`}>
+      <div className={`z-50 bg-white/25 border border-white/30 rounded-xl flex justify-between items-center backdrop-blur-2xl mt-5 mx-4 md:mx-28 md:mt-12 ${openMenu ? "rounded-b-sm" : ""}`}>
         {/* LOGO and TEXT */}
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-14 md:h-20" />
@@ -159,7 +159,7 @@ function NavBar() {
           </div>
         </div>
       </div>
-            <div className={`flex justify-center gap-8 items-center py-7 text-white text-xl mx-8 bg-white/40 border border-white/60 rounded-xl backdrop-blur-2xl ${openMenu ? "block rounded-t-sm" : "hidden"} transition-transform duration-1000 md:hidden`}>
+            <div className={`flex justify-center gap-8 items-center py-7 text-white text-xl mx-4 bg-white/40 border border-white/60 rounded-xl backdrop-blur-2xl ${openMenu ? "block rounded-t-sm" : "hidden"} transition-transform duration-1000 md:hidden`}>
                 <div className="flex items-center gap-1 pb-1 bg-black/25 border border-white/30 backdrop-blur-lg shadow-lg shadow-white/25 inset-shadow-sm inset-shadow-white/30 px-3 rounded-full" onClick={dropDownCountry}>
                     <p className="py-1">
                         Country

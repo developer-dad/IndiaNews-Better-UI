@@ -15,7 +15,7 @@ function App() {
         <CurrentNews />
         {/* <NewsItem /> */}
         <News/>
-        {/* <Toast/> */}
+        <Toast/>
       
       </div>
     </>
