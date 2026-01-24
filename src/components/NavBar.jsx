@@ -6,6 +6,23 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { useState, useEffect, useRef } from "react";
 
 function NavBar() {
+  let category = [
+    "Top",
+    "Business",
+    "Entertainment",
+    "Health",
+    "Science",
+    "Sports",
+    "Technology",
+  ];
+  let country = [
+    { code: "in", name: "India" },
+    { code: "us", name: "USA" },
+    { code: "ru", name: "Russia" },
+    { code: "gb", name: "UK" },
+    { code: "cn", name: "China" },
+  ];
+
   const [openCountry, setOpenCountry] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -24,17 +41,6 @@ function NavBar() {
   const toggleMenu = () => {
     setOpenMenu((prev) => !prev);
   };
-
-  const vibrate = () => {
-    if("vibrate" in navigator){
-      navigator.vibrate(50);
-    }
-  }
-
-  const menuVibrate = () => {
-    toggleMenu();
-    vibrate();
-  }
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -75,35 +81,30 @@ function NavBar() {
             >
               <div className="hover:bg-white/25 flex items-center gap-1 px-4 py-0.5 rounded-lg rounded-l-full">
                 <p>Country</p>
-                <div>
-                  <FaCaretDown
-                    className={`transition-transform duration-300 ${
-                      openCountry ? "rotate-180" : "rotate-0"
-                    }`}
-                  />
-                </div>
-                {/* COUNTRY DROPDOWN */}
-                <div className={`relative ${openCountry ? "block" : "hidden"}`}>
-                  <ul className="absolute w-32 top-7 -right-5 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      India
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      Russia
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      USA
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      Chain
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                      UK
-                    </li>
-                  </ul>
-                </div>
+                <FaCaretDown
+                  className={`transition-transform duration-300 ${
+                    openCountry ? "rotate-180" : "rotate-0"
+                  }`}
+                />
+              </div>
+
+              {/* COUNTRY DROPDOWN */}
+              <div className={`relative ${openCountry ? "block" : "hidden"}`}>
+                <ul className="absolute w-32 top-7 -right-2 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
+                  {country.map((country) => {
+                    return (
+                      <li
+                        key={country}
+                        className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer"
+                      >
+                        {country.name}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
+
             {/* CATEGORY */}
             <div
               className={`text-white text-[18px] border px-1 py-1 rounded-xl rounded-r-full shadow-xl ${
@@ -115,52 +116,33 @@ function NavBar() {
             >
               <div className="hover:bg-white/25 flex items-center gap-1 px-4 py-0.5 rounded-lg rounded-r-full">
                 <p>Category</p>
-                <div>
-                  <FaCaretDown
-                    className={`transition-transform duration-300 ${
-                      openCategory ? "rotate-180" : "rotate-0"
-                    }`}
-                  />
-                </div>
-                {/* CATEGORY DROPDOWN */}
-                <div
-                  className={`relative ${openCategory ? "block" : "hidden"}`}
-                >
-                  <ul className="absolute w-44 top-7 -right-5 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Top
+                <FaCaretDown
+                  className={`transition-transform duration-300 ${
+                    openCategory ? "rotate-180" : "rotate-0"
+                  }`}
+                />
+              </div>
+              {/* CATEGORY DROPDOWN */}
+              <div className={`relative ${openCategory ? "block" : "hidden"}`}>
+                <ul className="absolute w-44 top-3 -right-1 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
+                  {category.map((category) => (
+                    <li
+                      key={category}
+                      className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer"
+                    >
+                      {category}
                     </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Business
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Entertainment
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Health
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Science
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Sports
-                    </li>
-                    <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                      Techhnology
-                    </li>
-                  </ul>
-                </div>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
         </div>
 
-        {/* SEARCH */}
+        {/* SEARCH & MENU */}
         <div className="flex gap-1.5 mx-2 md:mx-4">
           <div className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 flex items-center justify-center rounded-full text-white my-2 mx-0.5 px-1.5 pl-1 pr-2 md:my-5 md:px-2 md:py-1">
-            <div>
-              <CgSearch className="size-7" />
-            </div>
+            <CgSearch className="size-7" />
             <input
               type="text"
               placeholder="Search..."
@@ -171,12 +153,13 @@ function NavBar() {
           {/* MENU */}
           <div
             className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 rounded-l-3xl rounded-r-xl text-white my-2 mx-0.5 pl-2 pr-0.5 py-1.5 md:hidden"
-            onClick={menuVibrate}
+            onClick={toggleMenu}
           >
             <HiOutlineMenuAlt3 className="size-7" />
           </div>
         </div>
       </div>
+
       <div
         className={`flex justify-center gap-8 items-center py-7 text-white text-xl mx-4 bg-white/40 border border-white/60 rounded-xl backdrop-blur-2xl ${
           openMenu ? "block rounded-t-sm" : "hidden"
@@ -192,21 +175,13 @@ function NavBar() {
           {/* Country Mobile Dropdown */}
           <div className={`relative ${openCountry ? "block" : "hidden"}`}>
             <ul className="absolute w-32 top-7 -right-3 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                India
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                Russia
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                USA
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                Chain
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
-                UK
-              </li>
+              {country.map((country) => {
+                return (
+                  <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                    {country.name}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
@@ -220,27 +195,13 @@ function NavBar() {
           {/* Category Mobile Dropdown */}
           <div className={`relative ${openCategory ? "block" : "hidden"}`}>
             <ul className="absolute w-44 top-7 -right-3 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Top
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Business
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Entertainment
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Health
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Science
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Sports
-              </li>
-              <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
-                Techhnology
-              </li>
+              {category.map((category) => {
+                return (
+                  <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                    {category}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
