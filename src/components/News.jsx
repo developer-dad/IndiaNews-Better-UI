@@ -52,7 +52,7 @@ function News() {
             </div>
           );
         })}
-      </div>
+      </div> 
     </InfiniteScroll>
   );
 }
