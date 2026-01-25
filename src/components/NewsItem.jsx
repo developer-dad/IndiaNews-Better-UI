@@ -1,5 +1,4 @@
 import React from "react";
-import demo from "../assets/demo.jpg";
 import { FaCaretRight } from "react-icons/fa6";
 
 function NewsItem(props) {

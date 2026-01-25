@@ -42,7 +42,7 @@ function News() {
               <NewsItem
                 title={news.title?.slice(0, 46) || "Title not Present"}
                 description={news.description?.slice(0, 93) || "Description not Present"}
-                source={news.source_name || "Unknown"}
+                source={news.source_name.slice(0,20) || "Unknown"}
                 image_url={news.image_url || FALLBACK_IMAGE}
                 month={pub_on.toLocaleString("en-US", { month: "short" })}
                 date={pub_on.getDate()}
