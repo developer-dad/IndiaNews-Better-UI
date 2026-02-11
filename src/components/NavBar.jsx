@@ -94,7 +94,7 @@ function NavBar() {
                   {country.map((country) => {
                     return (
                       <li
-                        key={country}
+                        key={country.code}
                         className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer"
                       >
                         {country.name}
@@ -127,7 +127,7 @@ function NavBar() {
                 <ul className="absolute z-9999 w-44 top-3 -right-1 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
                   {category.map((category) => (
                     <li
-                      key={category}
+                      key={category.code}
                       className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer"
                     >
                       {category}
@@ -177,7 +177,7 @@ function NavBar() {
             <ul className="absolute w-32 top-7 -right-3 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
               {country.map((country) => {
                 return (
-                  <li className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
+                  <li key={country.code} className="hover:bg-white/25 w-full rounded-lg py-1.5 px-2 cursor-pointer">
                     {country.name}
                   </li>
                 );
@@ -197,7 +197,7 @@ function NavBar() {
             <ul className="absolute w-44 top-7 -right-3 bg-white/20 flex flex-col text-end text-white gap-0.5 rounded-xl p-1 backdrop-blur-2xl border border-white/30">
               {category.map((category) => {
                 return (
-                  <li className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
+                  <li key={category.code} className="hover:bg-white/25 w-full rounded-lg py-1.5 pl-8 px-2 cursor-pointer">
                     {category}
                   </li>
                 );

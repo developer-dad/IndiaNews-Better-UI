@@ -13,8 +13,7 @@ function SearchModal({ modal, onClickClose, inputRef }) {
 
   return (
     <div
-      className={`fixed -inset-x-4 -inset-y-5 w-screen h-screen bg-black/80 backdrop-blur-[10px] ${modal ? "block" : "hidden"}`}
-      style={{"backdropFilter": "blur(10px)"}}
+      className={`fixed -inset-x-4 -inset-y-5 w-screen h-screen bg-black/80 ${modal ? "block" : "hidden"}`}
     >
       <div className="flex justify-around gap-1 my-8 mx-8">
         <form onSubmit={onClickSearch}>

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CgSearch } from "react-icons/cg";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import SearchModal from "./SearchModal";
 
-function SearchMenu(props) {
+function SearchMenu({ toggleMenu }) {
   const [modal, setModal] = useState(false);
   const [value, setValue] = useState('')
   const inputRef = useRef(null)
@@ -46,7 +47,7 @@ function SearchMenu(props) {
       {/* MENU */} 
       <div
         className="border border-white/75 shadow-sm shadow-white/40 inset-shadow-sm inset-shadow-white/30 rounded-l-3xl rounded-r-xl text-white my-2 mx-0.5 pl-2 pr-0.5 py-1.5 md:hidden"
-        onClick={props.toggleMenu}
+        onClick={toggleMenu}
       >
         <HiOutlineMenuAlt3 className="size-7" />
       </div>
