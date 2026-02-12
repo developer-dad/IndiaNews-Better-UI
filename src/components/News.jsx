@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
-function News({ country = "in", category = "top", q }) {
+const News = ({ country = "in", category = "top", q }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 

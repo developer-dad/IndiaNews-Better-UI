@@ -1,41 +1,19 @@
-import React, { useState } from "react";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { IoIosSearch } from "react-icons/io";
+import React, { useRef } from "react";
+import { IoMdClose } from "react-icons/io";
 
-function SearchModal({ modal, onClickClose, inputRef }) {
-  const [searchValue, setSearchValue] = useState("");
-
-  const onClickSearch = (e) => {
-    e.preventDefault()
-    if (!searchValue.trim()) return;
-    onClickClose();
-  };
-
+const SearchModal = ({ modal, onClickClose, onClickSearch, inputRef }) => {
   return (
-    <div
-      className={`fixed -inset-x-4 -inset-y-5 w-screen h-screen bg-black/80 ${modal ? "block" : "hidden"}`}
-    >
-      <div className="flex justify-around gap-1 my-8 mx-8">
-        <form onSubmit={onClickSearch}>
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Search..."
-            value={searchValue}
-            className="bg-transparent border border-white text-white w-full placeholder-white/60 rounded-full px-4 py-2 "
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </form>
-        <button onClick={onClickSearch} className="text-white">
-          <IoIosSearch size={30} />
-        </button>
-        <button onClick={onClickClose} className="text-white">
-          <IoIosCloseCircleOutline size={35} />
-        </button>
+    modal && (
+      <div onClick={onClickSearch} className="absolute flex items-center justify-end gap-2 inset-0 pl-5 bg-black">
+        <div className="w-full">
+          <input type="text" ref={inputRef} placeholder="Search..." className="text-white border bg-black/10 border-white/50 rounded-full px-4 py-2.5 w-full shadow-lg shadow-white/30"/>
+        </div>
+        <div onClick={onClickClose} className="border border-white/50 py-2 pl-3 pr-1 rounded-full rounded-r-xl shadow-lg shadow-white/30">
+          <IoMdClose size={30} color="white" />
+        </div>
       </div>
-      <hr className="bg-white/80 h-0.5 mx-4" />
-    </div>
+    )
   );
-}
+};
 
 export default SearchModal;

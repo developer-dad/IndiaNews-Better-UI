@@ -1,23 +1,29 @@
-import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
+import React from "react";
+import NavBar from "./components/Navbar/NavBar";
 import CurrentNews from "./components/CurrentNews";
-import Toast from "./components/Toast";
 import News from "./components/News";
+import Toast from "./components/Toast";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <div className="relative mx-4 md:mx-28">
-        {/* <div className="fixed inset-0 backdrop-blur-3xl"></div> */}
+    <div className="relative min-h-screen overflow-hidden">
 
+      {/* Background Layer */}
+      <div
+        className="bg-[url(background.jpg)] absolute inset-0 bg-cover bg-top-left blur-xl scale-150 md:blur-3xl md:bg-cover"
+      />
+
+      {/* Content Layer */}
+      <div className="relative z-10 mx-4">
         <NavBar />
-        <CurrentNews />
-        <News country="in" category="top" q="bhilwara" />
-        {/* <Toast/> */}
-      
+        <CurrentNews/>
+        <News country="in" category="top" />
+        <Toast/>
       </div>
-    </>
+
+    </div>
   );
-}
+};
+
 
 export default App;

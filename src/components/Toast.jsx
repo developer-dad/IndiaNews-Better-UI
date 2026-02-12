@@ -4,7 +4,7 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { IoIosClose } from "react-icons/io";
 
-function Toast() {
+const Toast = () => {
 
     const [Toast, setToast] = useState(true)
 

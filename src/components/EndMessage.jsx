@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 
-function EndMessage(props) {
+const EndMessage = ({ msg }) => {
   return (
     <div className="flex justify-center gap-2 items-center my-3 text-white">
       <div className="h-px w-full bg-white" ></div>
       <p className="w-full text-center text-xl md:text-2xl">
-        {props.msg}
+        {msg}
       </p>
       <div className="h-px w-full bg-white"></div>
     </div>
-  );
+  )
 }
 
-export default EndMessage;
+export default EndMessage

@@ -1,8 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function CurrentNews() {
+const CurrentNews = () => {
   return (
-    // Outer Box
     <div
       className="overflow-hidden relative rounded-xl border border-white/30 select-none mt-3 md:mt-5"
     >
@@ -16,7 +15,7 @@ function CurrentNews() {
         className="h-20 w-50 bg-white/30 rounded-full blur-2xl absolute inset-0"
       ></div>
     </div>
-  );
+  )
 }
 
-export default CurrentNews;
+export default CurrentNews

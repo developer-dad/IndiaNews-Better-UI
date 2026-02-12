@@ -15,3 +15,5 @@ export const CATEGORY = [
     { code: "sports", name: "Sports" },
     { code: "technology", name: "Technology" },
 ]
+
+export const LABEL = ["Country", "Category"]
