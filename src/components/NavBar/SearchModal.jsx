@@ -6,7 +6,7 @@ const SearchModal = ({ modal, onClickClose, onClickSearch, inputRef }) => {
     modal && (
       <div onClick={onClickSearch} className="absolute flex items-center justify-end gap-2 inset-0 pl-5 bg-black">
         <div className="w-full">
-          <input type="text" ref={inputRef} placeholder="Search..." className="text-white border bg-black/10 border-white/50 rounded-full px-4 py-2.5 w-full shadow-lg shadow-white/30"/>
+          <input type="text" ref={inputRef} placeholder="Search..." className="text-white border bg-black/10 border-white/50 rounded-full px-4 py-2.5 w-full shadow-lg shadow-white/30 focus:outline-blue-600/75"/>
         </div>
         <div onClick={onClickClose} className="border border-white/50 py-2 pl-3 pr-1 rounded-full rounded-r-xl shadow-lg shadow-white/30">
           <IoMdClose size={30} color="white" />
@@ -17,3 +17,4 @@ const SearchModal = ({ modal, onClickClose, onClickSearch, inputRef }) => {
 };
 
 export default SearchModal;
+ 

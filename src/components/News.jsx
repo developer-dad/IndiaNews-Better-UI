@@ -14,7 +14,7 @@ const News = ({ country = "in", category = "top", q }) => {
 
 
   const FetchNews = async () => {
-    const URL = `https://newsdata.io/api/1/latest?apikey=pub_cfba624d2f6b453889e0ccae937a8a41&country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+    const URL = `https://newsdata.io/api/1/latest?apikey=pub_cfba624d2f6b453889e0ccae937a8a41&language=en&country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
     const parsedData = await data.json();
@@ -69,6 +69,7 @@ const News = ({ country = "in", category = "top", q }) => {
                 date={pub_on.getDate()}
                 year={pub_on.getFullYear()}
                 link={news.link}
+                FALLBACK_IMAGE={FALLBACK_IMAGE}
               />
             </div>
           );

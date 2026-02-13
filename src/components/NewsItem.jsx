@@ -1,12 +1,15 @@
 import React from "react";
 import { FaCaretRight } from "react-icons/fa6";
 
-const NewsItem = ({ image_url, title, source, description, link, month, date, year }) => {
+const NewsItem = ({ image_url, title, source, description, link, month, date, year, FALLBACK_IMAGE }) => {
   return (
     <div className="relative h-120 rounded-xl overflow-hidden bg-black">
       <img
         src={image_url}
         alt={title}
+        onError={(e) => {
+          e.target.src = {FALLBACK_IMAGE};
+        }}
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/55 to-transparent z-10" />

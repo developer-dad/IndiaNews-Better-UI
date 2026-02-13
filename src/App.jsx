@@ -10,7 +10,7 @@ const App = () => {
 
       {/* Background Layer */}
       <div
-        className="bg-[url(background.jpg)] absolute inset-0 bg-cover bg-top-left blur-xl scale-150 md:blur-3xl md:bg-cover"
+        className="bg-[url(background.jpg)] absolute inset-0 bg-cover bg-top-left blur-xl scale-150 md:blur-3xl"
       />
 
       {/* Content Layer */}
@@ -18,7 +18,7 @@ const App = () => {
         <NavBar />
         <CurrentNews/>
         <News country="in" category="top" />
-        <Toast/>
+        {/* <Toast/> */}
       </div>
 
     </div>
