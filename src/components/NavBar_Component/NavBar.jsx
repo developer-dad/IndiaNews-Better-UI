@@ -47,7 +47,7 @@ const NavBar = () => {
   return (
     // Navbar Main Div
     <div
-      className={`bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25`}
+      className={`select-none bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25 md:mt-10`}
     >
       {/* Div Holding Text, Logo & both Buttons together */}
       {!searchModal && (

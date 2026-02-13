@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
-const News = ({ country = "in", category = "top" }) => {
+const News = ({ country = "in", category = "top", setNewsReady }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
@@ -35,10 +35,16 @@ const News = ({ country = "in", category = "top" }) => {
   };
 
   useEffect(() => {
-    setResult([]);
-    setNextPage(null);
-    setHasMore(true);
-    FetchNews();
+    const loadInitialNews = async () => {
+      setResult([]);
+      setNextPage(null);
+      setHasMore(true);
+
+      await FetchNews();
+      setNewsReady(true)
+    }
+    
+    loadInitialNews()
   }, [country, category]);
 
   return (
@@ -46,7 +52,7 @@ const News = ({ country = "in", category = "top" }) => {
       dataLength={result.length}
       next={FetchNews}
       hasMore={hasMore}
-      loader={<Loader />}
+      loader={<Loader paddingY="py-10"/>}
       endMessage={<EndMessage msg={result.length == 0 ? "No Result Found" : "You have reached the end!!"} />}
     >
       <div
