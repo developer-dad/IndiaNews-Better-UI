@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from './components/Navbar/NavBar'
+import NavBar from './components/NavBar_Component/NavBar'
 import CurrentNews from "./components/CurrentNews";
 import News from "./components/News";
 import Toast from "./components/Toast";
