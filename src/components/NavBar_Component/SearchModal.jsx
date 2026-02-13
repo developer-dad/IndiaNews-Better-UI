@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { IoSearchSharp } from "react-icons/io5";
 
-const SearchModal = ({ modal, onClickClose, onClickSearch, inputRef }) => {
+const SearchModal = ({ modal, onClickClose, inputRef }) => {
   return (
     modal && (
       <div className="absolute flex items-center justify-end gap-2 inset-0 pl-5">

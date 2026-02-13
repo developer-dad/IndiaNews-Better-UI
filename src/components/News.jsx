@@ -14,7 +14,7 @@ const News = ({ country = "in", category = "top", setNewsReady }) => {
 
 
   const FetchNews = async () => {
-    const URL = `https://newsdata.io/api/1/latest?apikey=pub_285b8012d1f14d4598c88cac75db1ac1&language=en&country=${country}&category=${category}${nextPage ? `&page=${nextPage}` : ""}`;
+    try {const URL = `https://newsdata.io/api/1/latest?apikey=pub_ebf2e0ccb1b847ab9bf286b0b32a0dd0&language=en&country=${country}&category=${category}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
     const parsedData = await data.json();
@@ -31,7 +31,10 @@ const News = ({ country = "in", category = "top", setNewsReady }) => {
       return [...prev, ...unique]
     });
     setNextPage(parsedData.nextPage);
-    setHasMore(parsedData.nextPage !== null)    
+    setHasMore(parsedData.nextPage !== null)  
+  } catch(err){
+    console.error(`Error in Fetching News ${err}`)
+  }  
   };
 
   useEffect(() => {

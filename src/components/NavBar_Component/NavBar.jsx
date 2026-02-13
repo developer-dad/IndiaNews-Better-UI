@@ -13,34 +13,14 @@ const NavBar = () => {
   const [menuModal, setMenuModal] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [labelClicked, setLabelClicked] = useState(null);
-
-  // const [showNav, setShowNav] = useState(true)
-  // const lastScrollY = useRef(0)
   const inputRef = useRef(null);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollY = window.scrollY
-  //     if(Math.abs(currentScrollY - lastScrollY.current) > 10) {
-  //       setShowNav(false)
-  //     }else{
-  //       setShowNav(true)
-  //     }
-  //     lastScrollY.current = currentScrollY
-  //   }
-  //   window.addEventListener("scroll", handleScroll)
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll)
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (searchModal) {
       document.body.style.overflow = "hidden";
       inputRef.current?.focus();
     } else {
-      document.body.style.overflow = "block";
+      document.body.style.overflow = "";
     }
   }, [searchModal]);
 
@@ -102,7 +82,9 @@ const NavBar = () => {
                   className={`flex items-center gap-1.5 bg-white/15 px-3 text-lg py-1 shadow-lg shadow-white/25 border border-white/50 text-white/80 rounded-full ${index === 0 ? "rounded-r-none" : index === 1 ? "rounded-l-none" : ""}`}
                 >
                   {label}
-                  <TiArrowSortedDown className={`transition-transform duration-200 ${openDropDown && labelClicked === label ? "rotate-180" : "rotate-0"}`}/>
+                  <TiArrowSortedDown
+                    className={`transition-transform duration-200 ${openDropDown && labelClicked === label ? "rotate-180" : "rotate-0"}`}
+                  />
                 </div>
               ))}
             </div>
