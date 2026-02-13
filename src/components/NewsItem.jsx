@@ -1,7 +1,9 @@
 import React from "react";
 import { FaCaretRight } from "react-icons/fa6";
 
-const NewsItem = ({ image_url, title, source, description, link, month, date, year, FALLBACK_IMAGE }) => {
+const NewsItem = ({ image_url, title, source, description, link, month, date, year}) => {
+  const FALLBACK_IMAGE =  "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
+
   return (
     <div className="relative h-120 rounded-xl overflow-hidden bg-black">
       <img

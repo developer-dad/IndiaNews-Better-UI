@@ -3,30 +3,31 @@ import SearchModal from "./SearchModal";
 import Menu from "./Menu";
 import { IoSearchSharp } from "react-icons/io5";
 import { RiMenuFill } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
 
 const NavBar = () => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
-  const [showNav, setShowNav] = useState(true)
-  const lastScrollY = useRef(0)
+  // const [showNav, setShowNav] = useState(true)
+  // const lastScrollY = useRef(0)
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      if(Math.abs(currentScrollY - lastScrollY.current) > 10) {
-        setShowNav(false)
-      }else{
-        setShowNav(true)
-      }
-      lastScrollY.current = currentScrollY
-    }
-    window.addEventListener("scroll", handleScroll)
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY
+  //     if(Math.abs(currentScrollY - lastScrollY.current) > 10) {
+  //       setShowNav(false)
+  //     }else{
+  //       setShowNav(true)
+  //     }
+  //     lastScrollY.current = currentScrollY
+  //   }
+  //   window.addEventListener("scroll", handleScroll)
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll)
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (searchModal) {
@@ -39,9 +40,9 @@ const NavBar = () => {
 
   return (
     // Navbar Main Div
-    <div className={`bg-white/20 backdrop-blur-xl w-full mt-5 rounded-xl border border-white/25 overflow-hidden `}>
+    <div className={`bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25`}>
       {/* Div Holding Text, Logo & both Buttons together */}
-      <div className="flex justify-between items-center">
+      {!searchModal && <div className="flex justify-between items-center">
         {/* Div for Text & Logo */}
         <div className="flex justify-center items-center">
           <img
@@ -60,6 +61,7 @@ const NavBar = () => {
             className="border border-white/50 p-2 rounded-full shadow-lg shadow-white/30"
             onClick={() => {
               setSearchModal((prev) => !prev);
+              setMenuModal(false)
             }}
           >
             <IoSearchSharp size={30} className="text-white/95" />
@@ -70,16 +72,15 @@ const NavBar = () => {
               setMenuModal((prev) => !prev);
             }}
           >
-            <RiMenuFill size={30} className="text-white/95" />
+            {!menuModal ? <RiMenuFill size={30} className="text-white/95" /> : <IoMdClose size={30} color="white" />}
           </button>
         </div>
-      </div>
+      </div>}
 
       {/* Search Modal Component */}
       <SearchModal
         modal={searchModal}
         onClickClose={() => setSearchModal(false)}
-        onClickSearch={() => setOpenDropDown(false)}
         inputRef={inputRef}
       />
 

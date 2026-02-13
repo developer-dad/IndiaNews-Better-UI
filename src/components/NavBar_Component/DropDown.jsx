@@ -14,14 +14,17 @@ const DropDown = ({ modal, Clicked }) => {
   return (
     modal && (
     <div className='flex flex-col text-center text-white/85 text-lg'>
-        {data.map((list, index) => (
+        {data.map((list, index) => {
+            const lastId = index === data.length - 1
+            return (
             <div key={index}>
-            <hr className='text-white/75'/>
             <a href={list.code} key={index}>
-                {list.name}
+                {list.name} 
             </a>
+            {!lastId && <hr className='text-white/75'/>}
             </div>
-        ))}
+            )
+            })}
     </div>
     )
   )
