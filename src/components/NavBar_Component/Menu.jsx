@@ -17,7 +17,7 @@ const Menu = ({ modal }) => {
         {LABEL.map((label, index) => (   
         <p key={index} onClick={() => {setOpenDropDown(prev => !prev); setLabelClicked(label)}} className='flex justify-center items-center gap-2 border text-white border-white/45 py-2 px-3 rounded-2xl shadow-lg shadow-black/20'>
             {label}
-            <TiArrowSortedDown/>
+            <TiArrowSortedDown className={`transition-transform duration-200 ${openDropDown && labelClicked === label ? "rotate-180" : "rotate-0"}`}/>
         </p>
         ))} 
     </div>

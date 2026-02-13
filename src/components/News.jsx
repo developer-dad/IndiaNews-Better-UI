@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
-const News = ({ country = "in", category = "top", q }) => {
+const News = ({ country = "in", category = "top" }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
@@ -14,7 +14,7 @@ const News = ({ country = "in", category = "top", q }) => {
 
 
   const FetchNews = async () => {
-    const URL = `https://newsdata.io/api/1/latest?apikey=pub_cfba624d2f6b453889e0ccae937a8a41&language=en&country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+    const URL = `https://newsdata.io/api/1/latest?apikey=pub_285b8012d1f14d4598c88cac75db1ac1&language=en&country=${country}&category=${category}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
     const parsedData = await data.json();
@@ -31,7 +31,7 @@ const News = ({ country = "in", category = "top", q }) => {
       return [...prev, ...unique]
     });
     setNextPage(parsedData.nextPage);
-    setHasMore(parsedData.results !== null)    
+    setHasMore(parsedData.nextPage !== null)    
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const News = ({ country = "in", category = "top", q }) => {
     setNextPage(null);
     setHasMore(true);
     FetchNews();
-  }, [country, category, q]);
+  }, [country, category]);
 
   return (
     <InfiniteScroll
