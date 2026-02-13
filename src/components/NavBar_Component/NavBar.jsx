@@ -7,7 +7,6 @@ import { RiMenuFill } from "react-icons/ri";
 const NavBar = () => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
-  const [openDropDown, setOpenDropDown] = useState(false);
   const [showNav, setShowNav] = useState(true)
   const lastScrollY = useRef(0)
   const inputRef = useRef(null);
@@ -87,10 +86,6 @@ const NavBar = () => {
       {/* Menu Component */}
       <Menu
         modal={menuModal}
-        setOpenDropDown={() => {
-          setOpenDropDown((prev) => !prev);
-        }}
-        openDropDown={openDropDown}
       />
     </div>
   );

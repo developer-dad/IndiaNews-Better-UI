@@ -10,7 +10,7 @@ const App = () => {
 
       {/* Background Layer */}
       <div
-        className="absolute inset-0 bg-cover bg-right bg-fixed blur-xl scale-150 md:blur-3xl"
+        className="fixed inset-0 bg-cover bg-left bg-fixed blur-xl scale-150 md:blur-3xl"
         style={{backgroundImage: "url('/background.jpg')"}}
       />
 
