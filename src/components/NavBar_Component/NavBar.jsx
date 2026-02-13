@@ -39,7 +39,7 @@ const NavBar = () => {
               alt="Logo"
               className="size-18 overflow-hidden items-center"
             />
-            <p className="text-white text-2xl md:text-3xl md:bg-linear-to-r md:from-white/75 md:text-black md:rounded-l-lg">
+            <p className="text-white text-2xl md:text-3xl md:bg-linear-to-r md:px-1 md:from-white/75 md:text-black md:rounded-l-lg">
               India<span className="text-blue-600">News</span>
             </p>
           </div>

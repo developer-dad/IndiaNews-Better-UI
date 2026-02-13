@@ -14,7 +14,8 @@ const News = ({ country = "in", category = "top", setNewsReady }) => {
 
 
   const FetchNews = async () => {
-    try {const URL = `https://newsdata.io/api/1/latest?apikey=pub_ebf2e0ccb1b847ab9bf286b0b32a0dd0&language=en&country=${country}&category=${category}${nextPage ? `&page=${nextPage}` : ""}`;
+    try {
+    const URL = `https://newsdata.io/api/1/latest?apikey=pub_ebf2e0ccb1b847ab9bf286b0b32a0dd0&language=en&country=${country}&category=${category}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
     const parsedData = await data.json();

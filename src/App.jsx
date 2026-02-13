@@ -17,7 +17,7 @@ const App = () => {
       <img
         src="./background.jpg"
         alt="Background Image"
-        className="fixed inset-0 object-cover object-left w-full h-full blur-xl scale-125 md:blur-3xl md:scale-150"
+        className="fixed inset-0 object-cover object-left w-full h-full blur-xl scale-125 md:blur-2xl md:scale-150"
         onLoad={() => {
           setBackgroundReady(true);
         }}
