@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
-const News = ({ country = "in", category = "top", setNewsReady }) => {
+const News = ({ country = "in", category = "top", q }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
@@ -15,41 +15,26 @@ const News = ({ country = "in", category = "top", setNewsReady }) => {
 
   const FetchNews = async () => {
     try {
-    const URL = `https://newsdata.io/api/1/latest?apikey=pub_ebf2e0ccb1b847ab9bf286b0b32a0dd0&language=en&country=${country}&category=${category}${nextPage ? `&page=${nextPage}` : ""}`;
+    const URL = `/news?country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
-    const parsedData = await data.json();
+    const parsedData = await data.json();    
 
-    setResult((prev) => {
-      const seen = new Set(prev.map(n => n.article_id))
-      const unique = parsedData.results.filter(
-        n => !seen.has(n.article_id)
-      )
-      if(unique.length === 0){
-        setHasMore(false)
-        return prev
-      }
-      return [...prev, ...unique]
-    });
+    setResult(prev => [...prev, ...(parsedData.results || [])])
     setNextPage(parsedData.nextPage);
     setHasMore(parsedData.nextPage !== null)  
+    
   } catch(err){
     console.error(`Error in Fetching News ${err}`)
   }  
   };
 
   useEffect(() => {
-    const loadInitialNews = async () => {
       setResult([]);
       setNextPage(null);
       setHasMore(true);
-
-      await FetchNews();
-      setNewsReady(true)
-    }
-    
-    loadInitialNews()
-  }, [country, category]);
+      FetchNews();
+  }, [country, category, q]);
 
   return (
     <InfiniteScroll

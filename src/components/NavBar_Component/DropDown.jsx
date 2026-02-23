@@ -1,33 +1,41 @@
-import React from 'react'
-import {COUNTRY, CATEGORY} from '../../Data/assets'
+import React from "react";
+import { COUNTRY, CATEGORY } from "../../Data/assets";
 
-const DropDown = ({ modal, Clicked }) => {
-
-    let data = []
-    
-    if(Clicked === 'Country'){
-        data = COUNTRY
-    }else if(Clicked === 'Category'){
-        data = CATEGORY
-    }
+const DropDown = ({ modal, Clicked, setCountry, setCategory, setCountryName, setCategoryName }) => {
+  let data = []
+  if(Clicked === "Country"){
+    data = COUNTRY
+  }else if(Clicked === "Category"){
+    data = CATEGORY
+  }
 
   return (
     modal && (
-    <div className='flex flex-col text-center text-white/85 text-lg'>
+      <div className="flex flex-col text-center text-white/85 text-lg">
         {data.map((list, index) => {
-            const lastId = index === data.length - 1
-            return (
-            <div key={index}>
-            <a href={list.code} key={index}>
-                {list.name} 
-            </a>
-            {!lastId && <hr className='text-white/75'/>}
+          const lastId = index === data.length - 1;
+          return (
+            <div
+              key={index}
+              onClick={() => {
+                if (Clicked === "Country") {
+                  setCountry(list.code);
+                  setCountryName(list.name)
+                } else if (Clicked === "Category") {
+                  setCategory(list.code);
+                  setCategoryName(list.name)
+                }
+              }}
+              className="cursor-pointer hover:text-black"
+            >
+              {list.name}
+              {!lastId && <hr className="text-white/75" />}
             </div>
-            )
-            })}
-    </div>
+          );
+        })}
+      </div>
     )
-  )
-}
+  );
+};
 
-export default DropDown
+export default DropDown;

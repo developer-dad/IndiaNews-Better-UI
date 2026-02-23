@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import NavBar from "./components/NavBar_Component/NavBar";
 import CurrentNews from "./components/CurrentNews";
 import News from "./components/News";
-import Toast from "./components/Toast";
 import LoadingScreen from "./components/LoadingScreen";
+import Toast from "./components/Toast"
 
 const App = () => {
   const [backgroundReady, setBackgroundReady] = useState(false);
-  const [newsReady, setNewsReady] = useState(false);
-
-  const allReady = backgroundReady && newsReady;
+  const [country, setCountry] = useState("in");
+  const [countryName, setCountryName] = useState("India");
+  const [category, setCategory] = useState("top");
+  const [categoryName, setCategoryName] = useState("Top");
+  const [q, setQ] = useState(null);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -23,20 +25,21 @@ const App = () => {
         }}
       />
 
-      {!allReady && <LoadingScreen/>}
+      {!backgroundReady && <LoadingScreen />}
 
       {/* Content Layer */}
-        <div className="relative z-10 mx-4 md:mx-36">
-          <NavBar />
-          <CurrentNews />
-          <News
-            country="in"
-            category="top"
-            setNewsReady={setNewsReady}
-            />
-          {/* <Toast/> */}
-        </div>
-
+      <div className="relative z-10 mx-4 md:mx-36">
+        <NavBar
+          setCountry={setCountry}
+          setCategory={setCategory}
+          setQ={setQ}
+          setCountryName={setCountryName}
+          setCategoryName={setCategoryName}
+        />
+        <CurrentNews countryName={countryName} categoryName={categoryName} q={q} />
+        <News country={country} category={category} q={q} />
+        <Toast countryName={countryName} categoryName={categoryName} q={q}/>
+      </div>
     </div>
   );
 };

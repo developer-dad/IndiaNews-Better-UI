@@ -5,7 +5,13 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    host: true
+    host: true,
+    proxy: {
+      '/news': {
+        target: "https://indianews-backend.onrender.com",
+        changeOrigin: true
+      }
+    }
   },
   plugins: [
     tailwindcss(),

@@ -8,11 +8,12 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { LABEL } from "../../Data/assets";
 import DropDown from "./DropDown";
 
-const NavBar = () => {
+const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName }) => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [labelClicked, setLabelClicked] = useState(null);
+  const [inputValue, setInputValue] = useState('')
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -33,7 +34,12 @@ const NavBar = () => {
       {!searchModal && (
         <div className="flex justify-between items-center md:mr-5">
           {/* Div for Text & Logo */}
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center cursor-pointer" onClick={() => {
+            setCountry('in')
+            setCountryName('India')
+            setCategory('top')
+            setCategoryName('Top')
+          }}>
             <img
               src="logo.png"
               alt="Logo"
@@ -79,7 +85,7 @@ const NavBar = () => {
                     setOpenDropDown((prev) => !prev);
                     setLabelClicked(label);
                   }}
-                  className={`flex items-center gap-1.5 bg-white/15 px-3 text-lg py-1 shadow-lg shadow-white/25 border border-white/50 text-white/80 rounded-full ${index === 0 ? "rounded-r-none" : index === 1 ? "rounded-l-none" : ""}`}
+                  className={`cursor-pointer flex items-center gap-1.5 bg-white/15 px-3 text-lg py-1 shadow-lg shadow-white/25 border border-white/50 text-white/80 rounded-full ${index === 0 ? "rounded-r-none" : index === 1 ? "rounded-l-none" : ""}`}
                 >
                   {label}
                   <TiArrowSortedDown
@@ -93,9 +99,16 @@ const NavBar = () => {
           {/* Search Input For Desktop */}
           <div className="hidden md:block">
             <div className="relative flex items-center">
-              <IoSearchSharp className="absolute size-6 text-white mx-2" />
+              <IoSearchSharp className="absolute size-6 text-white mx-2 cursor-pointer" />
               <input
                 type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if(e.key === "Enter"){
+                    setQ(inputValue)
+                  }
+                }}
                 placeholder="Search..."
                 className="focus:outline-blue-600 py-1.5 px-9 rounded-full placeholder:text-white/75 border border-white shadow-lg shadow-white/25 text-white"
               />
@@ -109,13 +122,16 @@ const NavBar = () => {
         modal={searchModal}
         onClickClose={() => setSearchModal(false)}
         inputRef={inputRef}
+        setQ={setQ}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
       />
 
       {/* Menu Component */}
-      <Menu modal={menuModal} />
+      <Menu modal={menuModal} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName}  />
 
       {/* DropDown Component for desktop */}
-      <DropDown modal={openDropDown} Clicked={labelClicked} />
+      <DropDown modal={openDropDown} Clicked={labelClicked} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} />
     </div>
   );
 };

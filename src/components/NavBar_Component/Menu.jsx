@@ -3,7 +3,7 @@ import DropDown from './DropDown';
 import { LABEL } from '../../Data/assets';
 import { TiArrowSortedDown } from "react-icons/ti";
 
-const Menu = ({ modal }) => {
+const Menu = ({ modal, setCountry, setCategory, setCountryName, setCategoryName }) => {
     const [openDropDown, setOpenDropDown] = useState(false);
     const [labelClicked, setLabelClicked] = useState(null)
 
@@ -21,7 +21,7 @@ const Menu = ({ modal }) => {
         </p>
         ))} 
     </div>
-    <DropDown modal={openDropDown} Clicked={labelClicked}/>
+    <DropDown modal={openDropDown} Clicked={labelClicked} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} />
     </>
     )}
     </>
