@@ -15,7 +15,7 @@ const News = ({ country = "in", category = "top", q }) => {
 
   const FetchNews = async () => {
     try {
-    const URL = `/news?country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+    const URL = `https://indianews-backend.onrender.com/news?country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
     const parsedData = await data.json();    
