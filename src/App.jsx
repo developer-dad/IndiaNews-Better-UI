@@ -37,7 +37,7 @@ const App = () => {
           setCategoryName={setCategoryName}
         />
         <CurrentNews countryName={countryName} categoryName={categoryName} q={q} />
-        <News country={country} category={category} q={q} />
+        <News country={country} category={category} q={q} setCountry={setCountry} setCategory={setCategory} setQ={setQ} />
         <Toast countryName={countryName} categoryName={categoryName} q={q}/>
       </div>
     </div>

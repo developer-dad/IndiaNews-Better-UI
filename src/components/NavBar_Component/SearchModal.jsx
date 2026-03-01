@@ -2,21 +2,22 @@ import React, { useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { IoSearchSharp } from "react-icons/io5";
 
-const SearchModal = ({ modal, onClickClose, inputRef, inputValue, setInputValue, setQ }) => {
+const SearchModal = ({ modal, onClickClose, inputRef, inputValue, setInputValue, setQ, setSearchModal }) => {
   return (
     modal && (
       <div className="absolute flex items-center justify-end gap-2 inset-0 pl-5">
         <div className="relative flex items-center w-full">
           <input
             type="text"
+            ref={inputRef}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => {
               if(e.key === "Enter"){
                 setQ(inputValue)
+                setSearchModal(false)
               }
             }}
-            ref={inputRef}
             placeholder="Search..."
             className="text-white border bg-black/10 border-white/50 rounded-full px-12 py-2.5 w-full shadow-lg shadow-white/30 focus:outline-blue-600/75"
           />

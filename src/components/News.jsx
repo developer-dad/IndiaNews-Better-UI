@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
-const News = ({ country = "in", category = "top", q }) => {
+const News = ({ country = "in", category = "top", q, setCountry, setCategory, setQ }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
@@ -15,7 +15,7 @@ const News = ({ country = "in", category = "top", q }) => {
 
   const FetchNews = async () => {
     try {
-    const URL = `https://indianews-backend.onrender.com/news?country=${country}&category=${category}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+    const URL = `https://indianews-backend.onrender.com/news?${country ? `&country=${country}` : ''}${category ? `&category=${category}` : ''}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
     const data = await fetch(URL);
     const parsedData = await data.json();    
@@ -28,6 +28,19 @@ const News = ({ country = "in", category = "top", q }) => {
     console.error(`Error in Fetching News ${err}`)
   }  
   };
+
+  useEffect(() => {
+    if(q){
+      setCountry('')
+      setCategory('')
+    }
+  }, [q])
+
+  useEffect(() => {
+    if(country || category){
+      setQ(null)
+    }
+  }, [country, category])
 
   useEffect(() => {
       setResult([]);

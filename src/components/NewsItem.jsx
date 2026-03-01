@@ -15,7 +15,8 @@ const NewsItem = ({ image_url, title, source, description, link, month, date, ye
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/55 to-transparent z-10" />
-      <div className="relative z-20 h-full flex flex-col justify-between p-4 text-white">
+      <div
+      className="relative z-20 h-full flex flex-col justify-between p-4 text-white">
         <div>
           <span className="w-fit px-3 py-1 text-xs rounded-full bg-white/20 backdrop-blur-lg shadow-xl shadow-white/30 border border-white/30">
             {source}

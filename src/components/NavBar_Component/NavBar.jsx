@@ -18,10 +18,7 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
 
   useEffect(() => {
     if (searchModal) {
-      document.body.style.overflow = "hidden";
       inputRef.current?.focus();
-    } else {
-      document.body.style.overflow = "";
     }
   }, [searchModal]);
 
@@ -45,7 +42,7 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
               alt="Logo"
               className="size-18 overflow-hidden items-center"
             />
-            <p className="text-white text-2xl md:text-3xl md:bg-linear-to-r md:px-1 md:from-white/75 md:text-black md:rounded-l-lg">
+            <p className="text-white text-2xl md:text-3xl md:px-1 md:rounded-l-lg">
               India<span className="text-blue-600">News</span>
             </p>
           </div>
@@ -103,6 +100,10 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
               <input
                 type="text"
                 value={inputValue}
+                onSubmit={() => {
+                  setCountry('in')
+                  setCategory('top')
+                }}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => {
                   if(e.key === "Enter"){
@@ -125,13 +126,14 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
         setQ={setQ}
         inputValue={inputValue}
         setInputValue={setInputValue}
+        setSearchModal={setSearchModal}
       />
 
       {/* Menu Component */}
-      <Menu modal={menuModal} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName}  />
+      <Menu modal={menuModal} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} menuModal={menuModal} />
 
       {/* DropDown Component for desktop */}
-      <DropDown modal={openDropDown} Clicked={labelClicked} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} />
+      <DropDown modal={openDropDown} Clicked={labelClicked} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} setOpenDropDown={setOpenDropDown} />
     </div>
   );
 };

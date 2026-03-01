@@ -1,7 +1,7 @@
 import React from "react";
 import { COUNTRY, CATEGORY } from "../../Data/assets";
 
-const DropDown = ({ modal, Clicked, setCountry, setCategory, setCountryName, setCategoryName }) => {
+const DropDown = ({ modal, Clicked, setCountry, setCategory, setCountryName, setCategoryName, setOpenDropDown }) => {
   let data = []
   if(Clicked === "Country"){
     data = COUNTRY
@@ -18,6 +18,7 @@ const DropDown = ({ modal, Clicked, setCountry, setCategory, setCountryName, set
             <div
               key={index}
               onClick={() => {
+                setOpenDropDown(false)
                 if (Clicked === "Country") {
                   setCountry(list.code);
                   setCountryName(list.name)
