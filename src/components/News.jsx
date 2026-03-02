@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import NewsItem from "./NewsItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
-const News = ({ country = "in", category = "top", q, setCountry, setCategory, setQ }) => {
+const News = ({
+  country = "in",
+  category = "top",
+  q,
+  setCountry,
+  setCategory,
+  setQ,
+}) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
@@ -12,79 +20,119 @@ const News = ({ country = "in", category = "top", q, setCountry, setCategory, se
   const [nextPage, setNextPage] = useState(null);
   const [hasMore, setHasMore] = useState(true);
 
-
   const FetchNews = async () => {
     try {
-    const URL = `https://indianews-backend.onrender.com/news?${country ? `&country=${country}` : ''}${category ? `&category=${category}` : ''}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+      const URL = `https://indianews-backend.onrender.com/news?${country ? `&country=${country}` : ""}${category ? `&category=${category}` : ""}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
-    const data = await fetch(URL);
-    const parsedData = await data.json();    
+      const data = await fetch(URL);
+      const parsedData = await data.json();
 
-    setResult(prev => [...prev, ...(parsedData.results || [])])
-    setNextPage(parsedData.nextPage);
-    setHasMore(parsedData.nextPage !== null)  
-    
-  } catch(err){
-    console.error(`Error in Fetching News ${err}`)
-  }  
+      setResult((prev) => [...prev, ...(parsedData.results || [])]);
+      setNextPage(parsedData.nextPage);
+      setHasMore(parsedData.nextPage !== null);
+    } catch (err) {
+      console.error(`Error in Fetching News ${err}`);
+    }
   };
 
   useEffect(() => {
-    if(q){
-      setCountry('')
-      setCategory('')
+    if (q) {
+      setCountry("");
+      setCategory("");
     }
-  }, [q])
+  }, [q]);
 
   useEffect(() => {
-    if(country || category){
-      setQ(null)
+    if (country || category) {
+      setQ(null);
     }
-  }, [country, category])
+  }, [country, category]);
 
   useEffect(() => {
-      setResult([]);
-      setNextPage(null);
-      setHasMore(true);
-      FetchNews();
+    setResult([]);
+    setNextPage(null);
+    setHasMore(true);
+    FetchNews();
   }, [country, category, q]);
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: -10 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+      y: 0
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.9 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
     <InfiniteScroll
       dataLength={result.length}
       next={FetchNews}
       hasMore={hasMore}
-      loader={<Loader paddingY="py-10"/>}
-      endMessage={<EndMessage msg={result.length == 0 ? "No Result Found" : "You have reached the end!!"} />}
+      loader={<Loader paddingY="py-10" />}
+      endMessage={
+        <EndMessage
+          msg={
+            result.length == 0
+              ? "No Result Found"
+              : "You have reached the end!!"
+          }
+        />
+      }
     >
-      <div
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
         className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3 md:mt-7"
       >
-        {result.map((news) => {
-          const pub_on = new Date(news.pubDate);
-          return (
-            <div
-              key={news.article_id}
-            >
-              <NewsItem
-                title={news.title?.slice(0, 46) || "Title not Present"}
-                description={
-                  news.description?.slice(0, 93) || "Description not Present"
-                }
-                source={news.source_name.slice(0, 20) || "Unknown"}
-                image_url={news.image_url || FALLBACK_IMAGE}
-                month={pub_on.toLocaleString("en-US", { month: "short" })}
-                date={pub_on.getDate()}
-                year={pub_on.getFullYear()}
-                link={news.link}
-                FALLBACK_IMAGE={FALLBACK_IMAGE}
-              />
-            </div>
-          );
-        })}
-      </div>
+        <AnimatePresence>
+          {result.map((news) => {
+            const pub_on = new Date(news.pubDate);
+            return (
+              <motion.div
+                key={news.article_id}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="show"
+                exit={{ opacity: 0, y: 20 }}
+                layout
+              >
+                <NewsItem
+                  title={news.title?.slice(0, 46) || "Title not Present"}
+                  description={
+                    news.description?.slice(0, 93) || "Description not Present"
+                  }
+                  source={news.source_name.slice(0, 20) || "Unknown"}
+                  image_url={news.image_url || FALLBACK_IMAGE}
+                  month={pub_on.toLocaleString("en-US", { month: "short" })}
+                  date={pub_on.getDate()}
+                  year={pub_on.getFullYear()}
+                  link={news.link}
+                  FALLBACK_IMAGE={FALLBACK_IMAGE}
+                />
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </motion.div>
     </InfiniteScroll>
   );
-}
+};
 
 export default News;
