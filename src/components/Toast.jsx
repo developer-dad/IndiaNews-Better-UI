@@ -12,8 +12,8 @@ const Toast = ({countryName, categoryName, q}) => {
     const [Icon, setIcon] = useState(null)
     const isFirstRender = useRef(true)
     const prevValue = useRef({countryName, categoryName, q})
-
-    const msgFunction = () => {
+    
+    useEffect(() => {
 
         if(isFirstRender.current){
             isFirstRender.current = false
@@ -25,15 +25,15 @@ const Toast = ({countryName, categoryName, q}) => {
         let Logo = null
         if(prevValue.current.countryName !== countryName){
             msg = `Country Changed to ${countryName}`
-            Logo = FaMapMarkedAlt
+            Logo = <FaMapMarkedAlt/>
         }
         else if(prevValue.current.categoryName !== categoryName){
             msg = `Category Changed to ${categoryName}`
-            Logo = BiSolidCategoryAlt
+            Logo = <BiSolidCategoryAlt/>
         }
         else if(prevValue.current.q !== q){
             msg = `Search Result for ${q}`
-            Logo = IoSearchSharp
+            Logo = <IoSearchSharp/>
         }
         
         if(msg !== ''){
@@ -45,12 +45,9 @@ const Toast = ({countryName, categoryName, q}) => {
                 setShowToast(false)
             }, 2500)
         }
-
+    
         prevValue.current = {countryName, categoryName, q}
-    }
-
-    useEffect(() => {
-        msgFunction()
+        
     }, [countryName, categoryName, q])
 
 

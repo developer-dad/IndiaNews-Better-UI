@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { delay, easeIn, easeInOut, motion } from "motion/react";
 import SearchModal from "./SearchModal";
 import Menu from "./Menu";
 import { IoSearchSharp } from "react-icons/io5";
@@ -8,12 +9,18 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { LABEL } from "../../Data/assets";
 import DropDown from "./DropDown";
 
-const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName }) => {
+const NavBar = ({
+  setCountry,
+  setCategory,
+  setQ,
+  setCountryName,
+  setCategoryName,
+}) => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [labelClicked, setLabelClicked] = useState(null);
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -22,21 +29,42 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
     }
   }, [searchModal]);
 
+  const divVarients = {
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        ease: "easeIn",
+        delay: 0.15
+      }
+    },
+    hidden: {
+      opacity: 0,
+      scale: 0.95
+    },
+  };
+
   return (
     // Navbar Main Div
-    <div
+    <motion.div
+      variants={divVarients}
+      initial="hidden"
+      animate="show"
       className={`select-none bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25 md:mt-10`}
     >
       {/* Div Holding Text, Logo & both Buttons together */}
       {!searchModal && (
         <div className="flex justify-between items-center md:mr-5">
           {/* Div for Text & Logo */}
-          <div className="flex justify-center items-center cursor-pointer" onClick={() => {
-            setCountry('in')
-            setCountryName('India')
-            setCategory('top')
-            setCategoryName('Top')
-          }}>
+          <div
+            className="flex justify-center items-center cursor-pointer hover:scale-102"
+            onClick={() => {
+              setCountry("in");
+              setCountryName("India");
+              setCategory("top");
+              setCategoryName("Top");
+            }}
+          >
             <img
               src="logo.png"
               alt="Logo"
@@ -101,13 +129,13 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
                 type="text"
                 value={inputValue}
                 onSubmit={() => {
-                  setCountry('in')
-                  setCategory('top')
+                  setCountry("in");
+                  setCategory("top");
                 }}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => {
-                  if(e.key === "Enter"){
-                    setQ(inputValue)
+                  if (e.key === "Enter") {
+                    setQ(inputValue);
                   }
                 }}
                 placeholder="Search..."
@@ -130,11 +158,26 @@ const NavBar = ({ setCountry, setCategory, setQ, setCountryName, setCategoryName
       />
 
       {/* Menu Component */}
-      <Menu modal={menuModal} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} menuModal={menuModal} />
+      <Menu
+        modal={menuModal}
+        setCountry={setCountry}
+        setCategory={setCategory}
+        setCountryName={setCountryName}
+        setCategoryName={setCategoryName}
+        setMenuModal={setMenuModal}
+      />
 
       {/* DropDown Component for desktop */}
-      <DropDown modal={openDropDown} Clicked={labelClicked} setCountry={setCountry} setCategory={setCategory} setCountryName={setCountryName} setCategoryName={setCategoryName} setOpenDropDown={setOpenDropDown} />
-    </div>
+      <DropDown
+        modal={openDropDown}
+        Clicked={labelClicked}
+        setCountry={setCountry}
+        setCategory={setCategory}
+        setCountryName={setCountryName}
+        setCategoryName={setCategoryName}
+        setOpenDropDown={setOpenDropDown}
+      />
+    </motion.div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { easeIn, motion } from 'motion/react'
 import NewsItem from "./NewsItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "./Loader";
@@ -22,7 +22,7 @@ const News = ({
 
   const FetchNews = async () => {
     try {
-      const URL = `https://indianews-backend.onrender.com/news?${country ? `&country=${country}` : ""}${category ? `&category=${category}` : ""}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+      const URL = `https://india-news-backend.vercel.app/news?${country ? `&country=${country}` : ""}${category ? `&category=${category}` : ""}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
       const data = await fetch(URL);
       const parsedData = await data.json();
@@ -55,29 +55,37 @@ const News = ({
     FetchNews();
   }, [country, category, q]);
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: -10 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.5,
-      },
-      y: 0
-    },
-  };
+  const divVariants = {
+  hidden: {
+    opacity: 0
+  },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.12
+    }
+  }
+};
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.9 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    },
-  };
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.92
+  },
+
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 16
+    }
+  }
+};
 
   return (
     <InfiniteScroll
@@ -96,22 +104,19 @@ const News = ({
       }
     >
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
+        variants={divVariants}
         animate="show"
+        initial="hidden"
+        layout
         className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3 md:mt-7"
       >
-        <AnimatePresence>
           {result.map((news) => {
             const pub_on = new Date(news.pubDate);
             return (
               <motion.div
-                key={news.article_id}
                 variants={cardVariants}
-                initial="hidden"
-                whileInView="show"
-                exit={{ opacity: 0, y: 20 }}
                 layout
+                key={news.article_id}
               >
                 <NewsItem
                   title={news.title?.slice(0, 46) || "Title not Present"}
@@ -129,7 +134,6 @@ const News = ({
               </motion.div>
             );
           })}
-        </AnimatePresence>
       </motion.div>
     </InfiniteScroll>
   );

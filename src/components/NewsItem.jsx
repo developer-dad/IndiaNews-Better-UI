@@ -1,11 +1,15 @@
 import React from "react";
 import { FaCaretRight } from "react-icons/fa6";
+import { motion } from 'motion/react'
 
 const NewsItem = ({ image_url, title, source, description, link, month, date, year}) => {
   const FALLBACK_IMAGE =  "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
   return (
-    <div className="relative h-120 rounded-xl overflow-hidden bg-black">
+    <motion.div 
+    whileHover={{scale: 1.02}}
+    whileTap={{scale: 0.97}}
+    className="relative h-120 rounded-xl overflow-hidden bg-black">
       <img
         src={image_url}
         alt={title}
@@ -30,14 +34,15 @@ const NewsItem = ({ image_url, title, source, description, link, month, date, ye
             {description}...
           </p>
           <div className="flex items-center justify-between">
-            <a
+            <motion.a
               href={link}
+              whileHover={{scale: 1.02}}
               target="_blank"
               className="cursor-pointer flex items-center gap-1 mb-3 w-fit px-2 py-2.5 text-sm rounded-full bg-white/20 hover:bg-white/30 transition shadow-xl shadow-white/20 inset-shadow-sm inset-shadow-white/30 border border-white/20"
             >
               Read More
               <FaCaretRight className="size-5" />
-            </a>
+            </motion.a>
             <div className="mb-3 text-xs text-white/60 text-end">
               Published on {month} {date}, {year} <br className="md:hidden" /> •{" "}
               {source}
@@ -45,7 +50,7 @@ const NewsItem = ({ image_url, title, source, description, link, month, date, ye
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

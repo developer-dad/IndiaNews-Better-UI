@@ -4,6 +4,7 @@ import CurrentNews from "./components/CurrentNews";
 import News from "./components/News";
 import LoadingScreen from "./components/LoadingScreen";
 import Toast from "./components/Toast"
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const [backgroundReady, setBackgroundReady] = useState(false);
@@ -38,7 +39,8 @@ const App = () => {
         />
         <CurrentNews countryName={countryName} categoryName={categoryName} q={q} />
         <News country={country} category={category} q={q} setCountry={setCountry} setCategory={setCategory} setQ={setQ} />
-        <Toast countryName={countryName} categoryName={categoryName} q={q}/>
+        {/* <Toast countryName={countryName} categoryName={categoryName} q={q}/> */}
+        <ScrollToTop/>
       </div>
     </div>
   );
