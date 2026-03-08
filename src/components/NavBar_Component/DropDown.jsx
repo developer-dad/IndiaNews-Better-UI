@@ -41,13 +41,16 @@ const DropDown = ({
 
   const itemVariants = {
     hidden: {
-      opacity: 0
+      opacity: 0,
+      y: -8
     },
     show: {
-      opacity: 1
+      opacity: 1,
+      y: 0
     },
     exit: {
-      opacity: 0
+      opacity: 0,
+      y: -8
     }
   }
 
@@ -68,7 +71,7 @@ const DropDown = ({
                   key={index}
                   onClick={() => {
                     setOpenDropDown(false);
-                    setMenuModal(false)
+                    setMenuModal?.(false)
                     if (Clicked === "Country") {
                       setCountry(list.code);
                       setCountryName(list.name);

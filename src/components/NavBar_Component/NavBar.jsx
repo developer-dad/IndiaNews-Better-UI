@@ -35,12 +35,12 @@ const NavBar = ({
       scale: 1,
       transition: {
         ease: "easeIn",
-        delay: 0.15
-      }
+        delay: 0.15,
+      },
     },
     hidden: {
       opacity: 0,
-      scale: 0.95
+      scale: 0.95,
     },
   };
 
@@ -107,8 +107,12 @@ const NavBar = ({
                 <div
                   key={index}
                   onClick={() => {
-                    setOpenDropDown((prev) => !prev);
-                    setLabelClicked(label);
+                    if (labelClicked === label) {
+                      setOpenDropDown((prev) => !prev);
+                    } else {
+                      setLabelClicked(label);
+                      setOpenDropDown(true);
+                    }
                   }}
                   className={`cursor-pointer flex items-center gap-1.5 bg-white/15 px-3 text-lg py-1 shadow-lg shadow-white/25 border border-white/50 text-white/80 rounded-full ${index === 0 ? "rounded-r-none" : index === 1 ? "rounded-l-none" : ""}`}
                 >
