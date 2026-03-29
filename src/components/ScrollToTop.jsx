@@ -57,7 +57,7 @@ const ScrollToTop = () => {
           initial="hidden"
           animate="show"
           exit="exit"
-          className="bg-white/80 border border-black/65 fixed inset-0 p-1.5 rounded-full w-fit h-fit left-1/2 -translate-x-1/2 top-full -translate-y-24 z-50 shadow-xl shadow-white/30 md:left-364 md:top-170 hover:scale-105"
+          className="bg-white/80 overflow-hidden border border-black/65 fixed inset-0 p-1.5 rounded-full w-fit h-fit left-1/2 -translate-x-1/2 top-full -translate-y-24 z-50 shadow-xl shadow-white/30 md:left-364 md:top-170 hover:scale-105"
           onClick={scrollToTop}
         >
           <BiSolidArrowToTop className="size-8" />
