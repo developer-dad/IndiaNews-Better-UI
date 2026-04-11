@@ -71,7 +71,7 @@ const NavBar = ({
               className="size-18 overflow-hidden items-center"
             />
             <p className="text-white text-2xl md:text-3xl md:px-1 md:rounded-l-lg">
-              India<span className="text-blue-600">News</span>
+              News Stack <span className="text-blue-600">India</span>
             </p>
           </div>
 

@@ -5,6 +5,7 @@ import News from "./components/News";
 import LoadingScreen from "./components/LoadingScreen";
 import Toast from "./components/Toast"
 import ScrollToTop from "./components/ScrollToTop";
+import Login from "./pages/Login";
 
 const App = () => {
   const [backgroundReady, setBackgroundReady] = useState(false);
@@ -26,10 +27,11 @@ const App = () => {
         }}
       />
 
-      {!backgroundReady && <LoadingScreen />}
+      {/* {!backgroundReady && <LoadingScreen />}
 
-      {/* Content Layer */}
+{/* Content Layer */}
       <div className="relative z-10 mx-4 md:mx-36">
+{/* <Login/> */}
         <NavBar
           setCountry={setCountry}
           setCategory={setCategory}
