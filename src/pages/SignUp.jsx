@@ -25,7 +25,7 @@ const SignUp = () => {
         password
       })
 
-      localStorage.setItem("token", res.accessToken)
+      localStorage.setItem("token", res.data.accessToken)
       window.location.href = '/'
       setLoading(false)
     }
