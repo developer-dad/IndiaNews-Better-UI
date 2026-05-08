@@ -15,6 +15,8 @@ const NavBar = ({
   setQ,
   setCountryName,
   setCategoryName,
+  auth,
+  setAuth
 }) => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
@@ -45,122 +47,134 @@ const NavBar = ({
   };
 
   return (
-    // Navbar Main Div
-    <motion.div
-      variants={divVarients}
-      initial="hidden"
-      animate="show"
-      className={`select-none bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25 md:mt-10`}
-    >
-      {/* Div Holding Text, Logo & both Buttons together */}
-      {!searchModal && (
-        <div className="flex justify-between items-center md:mr-5">
-          {/* Div for Text & Logo */}
-          <div
-            className="flex justify-center items-center cursor-pointer hover:scale-102"
-            onClick={() => {
-              setCountry("in");
-              setCountryName("India");
-              setCategory("top");
-              setCategoryName("Top");
-            }}
-          >
-            <img
-              src="logo.png"
-              alt="Logo"
-              className="size-18 overflow-hidden items-center"
-            />
-            <p className="text-white text-2xl md:text-3xl md:px-1 md:rounded-l-lg">
-              News Stack <span className="text-blue-600">India</span>
-            </p>
-          </div>
-
-          {/* Div for Search & Menu Button */}
-          <div className="flex gap-2 md:hidden">
-            <button
-              className="border border-white/50 p-2 rounded-full shadow-lg shadow-white/30"
+    <div className="relative z-50">
+      {/*  Navbar Main Div */}
+      <motion.div
+        variants={divVarients}
+        initial="hidden"
+        animate="show"
+        className={`select-none bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25 md:mt-10`}
+      >
+        {/* Div Holding Text, Logo & both Buttons together */}
+        {!searchModal && (
+          <div className="flex justify-between items-center md:mr-5">
+            {/* Div for Text & Logo */}
+            <div
+              className="flex justify-center items-center cursor-pointer hover:scale-102"
               onClick={() => {
-                setSearchModal((prev) => !prev);
-                setMenuModal(false);
+                setCountry("in");
+                setCountryName("India");
+                setCategory("top");
+                setCategoryName("Top");
               }}
             >
-              <IoSearchSharp size={30} className="text-white/95" />
-            </button>
-            <button
-              className="border border-white/50 py-2 pl-3 pr-1 rounded-full rounded-r-xl shadow-lg shadow-white/30"
-              onClick={() => {
-                setMenuModal((prev) => !prev);
-              }}
-            >
-              {!menuModal ? (
-                <RiMenuFill size={30} className="text-white/95" />
-              ) : (
-                <IoMdClose size={30} color="white" />
-              )}
-            </button>
-          </div>
+              <img
+                src="logo.png"
+                alt="Logo"
+                className="size-18 overflow-hidden items-center"
+              />
+              <p className="text-white text-2xl md:text-3xl md:px-1 md:rounded-l-lg">
+                NewsStack<span className="text-blue-600">India</span>
+              </p>
+            </div>
 
-          {/* DropDown Divs for Desktop - Country & Category */}
-          <div className="hidden md:block">
-            <div className="flex gap-1.5">
-              {LABEL.map((label, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    if (labelClicked === label) {
-                      setOpenDropDown((prev) => !prev);
-                    } else {
-                      setLabelClicked(label);
-                      setOpenDropDown(true);
+            {/* Div for Search & Menu Button */}
+            <div className="flex gap-2 md:hidden">
+              <button
+                className="border border-white/50 p-2 rounded-full shadow-lg shadow-white/30"
+                onClick={() => {
+                  setSearchModal((prev) => !prev);
+                  setMenuModal(false);
+                }}
+              >
+                <IoSearchSharp size={30} className="text-white/95" />
+              </button>
+              <button
+                className="border border-white/50 py-2 pl-3 pr-1 rounded-full rounded-r-xl shadow-lg shadow-white/30"
+                onClick={() => {
+                  setMenuModal((prev) => !prev);
+                }}
+              >
+                {!menuModal ? (
+                  <RiMenuFill size={30} className="text-white/95" />
+                ) : (
+                  <IoMdClose size={30} color="white" />
+                )}
+              </button>
+            </div>
+
+            {/* DropDown Divs for Desktop - Country & Category */}
+            <div className="hidden md:block">
+              <div className="flex gap-1.5">
+                {LABEL.map((label, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      if (labelClicked === label) {
+                        setOpenDropDown((prev) => !prev);
+                      } else {
+                        setLabelClicked(label);
+                        setOpenDropDown(true);
+                      }
+                    }}
+                    className={`cursor-pointer flex items-center gap-1.5 bg-white/15 px-3 text-lg py-1 shadow-lg shadow-white/25 border border-white/50 text-white/80 rounded-full ${index === 0 ? "rounded-r-none" : index === 1 ? "rounded-l-none" : ""}`}
+                  >
+                    {label}
+                    <TiArrowSortedDown
+                      className={`transition-transform duration-200 ${openDropDown && labelClicked === label ? "rotate-180" : "rotate-0"}`}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Search Input For Desktop */}
+            <div className="hidden md:block">
+              <div className="relative flex items-center">
+                <IoSearchSharp className="absolute size-6 text-white mx-2 cursor-pointer" />
+                <input
+                  type="text"
+                  value={inputValue}
+                  onSubmit={() => {
+                    setCountry("in");
+                    setCategory("top");
+                  }}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      setQ(inputValue);
                     }
                   }}
-                  className={`cursor-pointer flex items-center gap-1.5 bg-white/15 px-3 text-lg py-1 shadow-lg shadow-white/25 border border-white/50 text-white/80 rounded-full ${index === 0 ? "rounded-r-none" : index === 1 ? "rounded-l-none" : ""}`}
-                >
-                  {label}
-                  <TiArrowSortedDown
-                    className={`transition-transform duration-200 ${openDropDown && labelClicked === label ? "rotate-180" : "rotate-0"}`}
-                  />
-                </div>
-              ))}
+                  placeholder="Search..."
+                  className="focus:outline-blue-600 py-1.5 px-9 rounded-full placeholder:text-white/75 border border-white shadow-lg shadow-white/25 text-white"
+                />
+              </div>
             </div>
           </div>
+        )}
 
-          {/* Search Input For Desktop */}
-          <div className="hidden md:block">
-            <div className="relative flex items-center">
-              <IoSearchSharp className="absolute size-6 text-white mx-2 cursor-pointer" />
-              <input
-                type="text"
-                value={inputValue}
-                onSubmit={() => {
-                  setCountry("in");
-                  setCategory("top");
-                }}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    setQ(inputValue);
-                  }
-                }}
-                placeholder="Search..."
-                className="focus:outline-blue-600 py-1.5 px-9 rounded-full placeholder:text-white/75 border border-white shadow-lg shadow-white/25 text-white"
-              />
-            </div>
-          </div>
-        </div>
-      )}
+        {/* Search Modal Component */}
+        <SearchModal
+          modal={searchModal}
+          onClickClose={() => setSearchModal(false)}
+          inputRef={inputRef}
+          setQ={setQ}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          setSearchModal={setSearchModal}
+        />
 
-      {/* Search Modal Component */}
-      <SearchModal
-        modal={searchModal}
-        onClickClose={() => setSearchModal(false)}
-        inputRef={inputRef}
-        setQ={setQ}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        setSearchModal={setSearchModal}
-      />
-
+        {/* DropDown Component for desktop */}
+        <DropDown
+          modal={openDropDown}
+          Clicked={labelClicked}
+          setCountry={setCountry}
+          setCategory={setCategory}
+          setCountryName={setCountryName}
+          setCategoryName={setCategoryName}
+          setOpenDropDown={setOpenDropDown}
+        />
+      </motion.div>
       {/* Menu Component */}
       <Menu
         modal={menuModal}
@@ -169,19 +183,11 @@ const NavBar = ({
         setCountryName={setCountryName}
         setCategoryName={setCategoryName}
         setMenuModal={setMenuModal}
-      />
-
-      {/* DropDown Component for desktop */}
-      <DropDown
-        modal={openDropDown}
-        Clicked={labelClicked}
-        setCountry={setCountry}
-        setCategory={setCategory}
-        setCountryName={setCountryName}
-        setCategoryName={setCategoryName}
         setOpenDropDown={setOpenDropDown}
+        auth={auth}
+        setAuth={setAuth}
       />
-    </motion.div>
+    </div>
   );
 };
 

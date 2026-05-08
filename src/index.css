@@ -14,3 +14,11 @@
 ::-webkit-scrollbar-thumb:hover{
     background: rgba(79, 79, 255, 0.723);
 }
+
+.scrollbar-hide{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar{
+  display: none;
+}

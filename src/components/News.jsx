@@ -12,6 +12,7 @@ const News = ({
   setCountry,
   setCategory,
   setQ,
+  auth
 }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
@@ -22,14 +23,14 @@ const News = ({
 
   const FetchNews = async () => {
     try {
-      const URL = `https://india-news-backend.vercel.app/news?${country ? `&country=${country}` : ""}${category ? `&category=${category}` : ""}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
+      const URL = `https://india-news-backend.vercel.app/api/v1/news/fetch-news?${country ? `&country=${country}` : ""}${category ? `&category=${category}` : ""}${q ? `&q=${q}` : ""}${nextPage ? `&page=${nextPage}` : ""}`;
 
       const data = await fetch(URL);
       const parsedData = await data.json();
 
-      setResult((prev) => [...prev, ...(parsedData.results || [])]);
-      setNextPage(parsedData.nextPage);
-      setHasMore(parsedData.nextPage !== null);
+      setResult((prev) => [...prev, ...(parsedData.data.results || [])]);
+      setNextPage(parsedData.data.nextPage);
+      setHasMore(parsedData.data.nextPage !== null);
     } catch (err) {
       console.error(`Error in Fetching News ${err}`);
     }
@@ -116,7 +117,7 @@ const cardVariants = {
               <motion.div
                 variants={cardVariants}
                 layout
-                key={news.article_id}
+                key={news.article_id} 
               >
                 <NewsItem
                   title={news.title?.slice(0, 46) || "Title not Present"}
@@ -130,6 +131,7 @@ const cardVariants = {
                   year={pub_on.getFullYear()}
                   link={news.link}
                   FALLBACK_IMAGE={FALLBACK_IMAGE}
+                  auth={auth}
                 />
               </motion.div>
             );
