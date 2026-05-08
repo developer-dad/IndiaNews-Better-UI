@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 const CurrentNews = ({ countryName, categoryName, q }) => {
   const searchExists = q && q.trim() !== "";
 
+  // Div variants for Framer Motion
   const divVarients = {
     show: {
       opacity: 1,

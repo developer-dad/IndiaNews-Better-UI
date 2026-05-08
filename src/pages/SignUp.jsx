@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BACKEND_URL from "../api/url";
 
 const SignUp = () => {
@@ -12,6 +12,8 @@ const SignUp = () => {
 
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleSignUp = async (e) => {
       e.preventDefault()
@@ -26,7 +28,7 @@ const SignUp = () => {
       })
 
       localStorage.setItem("token", res.data.accessToken)
-      window.location.href = '/'
+      navigate('/')
       setLoading(false)
     }
 

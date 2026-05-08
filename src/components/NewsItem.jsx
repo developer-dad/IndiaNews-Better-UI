@@ -4,6 +4,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
+import BACKEND_URL from "../api/url.js";
 
 const NewsItem = ({
   image_url,
@@ -11,26 +12,90 @@ const NewsItem = ({
   source,
   description,
   link,
-  month = "",
-  date = "",
-  year = "",
+  month,
+  date,
+  year,
   article_id = "",
   pubDate = "",
-  userID = "",
-  auth
+  auth,
+  alreadySaved = false,
+  onRemove
 }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
   const [saved, setSaved] = useState(false);
 
-  const navigate = useNavigate()
+  const naviagte = useNavigate();
+
+  // Function to save a News when Clicked Save or Double Clicked Card
+  const handleSaveNews = async () => {
+    const token = localStorage.getItem("token");
+
+    setSaved(true);
+
+    // Check if LoggedIn or not
+    if (!token) {
+      naviagte("/login");
+      return;
+    }
+
+    try {
+      await BACKEND_URL.post(
+        "/save/save-news",
+        {
+          article_id,
+          title,
+          description,
+          image_url,
+          source,
+          link,
+          pubDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.error(`Error in Saving News ${error}`);
+      setSaved(false);
+    }
+  };
+
+  // Function to unsave a News when Clicked Save or Double Clicked Card
+  const handleUnsaveNews = async () => {
+    const token = localStorage.getItem("token");
+
+    // Validate token
+    if (!token) {
+      naviagte("/login");
+      return;
+    }
+    
+    try {
+      const res = await BACKEND_URL.delete(`/save/remove-news/${article_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSaved(false);
+    } catch (error) {
+      console.error(`Error in Removing News ${error}`);
+      setSaved(true);
+    }
+  };
 
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
       className="relative h-120 rounded-xl overflow-hidden bg-black"
+      onDoubleClick={
+        saved ? handleUnsaveNews : handleSaveNews
+      }
     >
       <img
         src={image_url}
@@ -47,13 +112,12 @@ const NewsItem = ({
             {source}
           </span>
           <div
-            onClick={() => {
-              setSaved((prev) => !prev);
-              auth ? "" : navigate('/login')
-            }}
+            onClick={
+              saved ? handleUnsaveNews : handleSaveNews
+            }
             className={`bg-white/50 p-1 border border-white/75 rounded-lg`}
           >
-            {saved ? (
+            {saved || alreadySaved ? (
               <FaBookmark size={18} color="black" />
             ) : (
               <CiBookmark size={18} color="black" />
