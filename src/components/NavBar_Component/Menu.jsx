@@ -21,15 +21,17 @@ const Menu = ({
 }) => {
   const [labelClicked, setLabelClicked] = useState(null);
 
+  const navigate = useNavigate()
+
   const handleLogOut = () => {
     localStorage.removeItem("token")
     setAuth(false)
-    window.location.href = '/'
+    navigate('/')
     setMenuModal(false)
   }
 
   const handleLogIn = () => {
-    window.location.href = '/login'
+    navigate('/login')
     setMenuModal(false)
   }
 

@@ -5,6 +5,7 @@ import { FaBookmark } from "react-icons/fa";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import BACKEND_URL from "../api/url.js";
+import Spinner from "./Spinner.jsx";
 
 const NewsItem = ({
   image_url,
@@ -19,17 +20,20 @@ const NewsItem = ({
   pubDate = "",
   auth,
   alreadySaved = false,
-  onRemove
+  onRemove,
 }) => {
   const FALLBACK_IMAGE =
     "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
 
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showLikeAnimation, setShowLikeAnimation] = useState(false);
 
   const naviagte = useNavigate();
 
   // Function to save a News when Clicked Save or Double Clicked Card
   const handleSaveNews = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
 
     setSaved(true);
@@ -58,6 +62,7 @@ const NewsItem = ({
           },
         },
       );
+      setLoading(false);
     } catch (error) {
       console.error(`Error in Saving News ${error}`);
       setSaved(false);
@@ -66,6 +71,7 @@ const NewsItem = ({
 
   // Function to unsave a News when Clicked Save or Double Clicked Card
   const handleUnsaveNews = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
 
     // Validate token
@@ -73,7 +79,7 @@ const NewsItem = ({
       naviagte("/login");
       return;
     }
-    
+
     try {
       const res = await BACKEND_URL.delete(`/save/remove-news/${article_id}`, {
         headers: {
@@ -82,10 +88,20 @@ const NewsItem = ({
       });
 
       setSaved(false);
+      setLoading(false);
     } catch (error) {
       console.error(`Error in Removing News ${error}`);
       setSaved(true);
     }
+  };
+
+  // Animation on Double Click
+  const triggerLikeAnimation = () => {
+    setShowLikeAnimation(true);
+
+    setTimeout(() => {
+      setShowLikeAnimation(false);
+    }, 700);
   };
 
   return (
@@ -93,9 +109,10 @@ const NewsItem = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
       className="relative h-120 rounded-xl overflow-hidden bg-black"
-      onDoubleClick={
-        saved ? handleUnsaveNews : handleSaveNews
-      }
+      onDoubleClick={() => {
+        triggerLikeAnimation();
+        saved || alreadySaved ? handleUnsaveNews() : handleSaveNews();
+      }}
     >
       <img
         src={image_url}
@@ -112,12 +129,12 @@ const NewsItem = ({
             {source}
           </span>
           <div
-            onClick={
-              saved ? handleUnsaveNews : handleSaveNews
-            }
+            onClick={saved || alreadySaved ? handleUnsaveNews : handleSaveNews}
             className={`bg-white/50 p-1 border border-white/75 rounded-lg`}
           >
-            {saved || alreadySaved ? (
+            {loading ? (
+              <Spinner size={20} />
+            ) : saved || alreadySaved ? (
               <FaBookmark size={18} color="black" />
             ) : (
               <CiBookmark size={18} color="black" />
@@ -148,6 +165,16 @@ const NewsItem = ({
           </div>
         </div>
       </div>
+      {showLikeAnimation && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0, 1.3, 1], opacity: [0, 1, 0] }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
+        >
+          <FaBookmark className="text-white drop-shadow-2xl" size={90} />
+        </motion.div>
+      )}
     </motion.div>
   );
 };

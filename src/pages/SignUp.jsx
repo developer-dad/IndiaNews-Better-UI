@@ -5,45 +5,52 @@ import { Link, useNavigate } from "react-router-dom";
 import BACKEND_URL from "../api/url";
 
 const SignUp = () => {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [showPassword, setShowPassword] = useState(false)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-    const [error, setError] = useState("")
-    const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const handleSignUp = async (e) => {
-      e.preventDefault()
+  // Used for SignUp
+  const handleSignUp = async (e) => {
+    e.preventDefault();
 
-      setError("")
-      setLoading(true)
+    setError("");
+    setLoading(true);
 
-      const res = await BACKEND_URL.post('/user/signup/', {
+    try {
+      const res = await BACKEND_URL.post("/user/signup/", {
         name: name.trim().toLowerCase(),
         email: email.trim().toLowerCase(),
-        password
-      })
+        password,
+      });
 
-      localStorage.setItem("token", res.data.accessToken)
-      navigate('/')
-      setLoading(false)
-    }
+      localStorage.setItem("token", res.data.accessToken);
 
-    const getTime = () => {
-        const hour = new Date().getHours()
-        let time = ""
-        if(hour < 12){
-            time = "Good Morning!"
-        }else if(hour >= 12 && hour <= 18){
-            time = "Good Afternoon!"
-        }else{
-            time = "Good Evening!"
-        }
-        return time
+      navigate("/");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const getTime = () => {
+    const hour = new Date().getHours();
+    let time = "";
+    if (hour < 12) {
+      time = "Good Morning!";
+    } else if (hour >= 12 && hour <= 18) {
+      time = "Good Afternoon!";
+    } else {
+      time = "Good Evening!";
+    }
+    return time;
+  };
 
   return (
     <div className="min-h-screen flex justify-center items-center z-50">
@@ -53,7 +60,6 @@ const SignUp = () => {
           <div className="flex flex-col">
             <label htmlFor="name">Name</label>
             <input
-              type="name"
               id="name"
               name="name"
               value={name}
@@ -94,16 +100,23 @@ const SignUp = () => {
               </span>
             </div>
           </div>
+          {error && (
+            <div className="text-red-600 text-sm px-3 py-px rounded-lg mb-4 text-center">
+              {error}
+            </div>
+          )}
           <button
             type="submit"
             className="bg-blue-500/50 w-full py-1 rounded-lg mb-3"
           >
-            {loading ? "Creating..." : "Sign In"}
+            {loading ? "Creating..." : "Create Account"}
           </button>
         </form>
         <h3 className="text-center text-sm">
-          Already a member? {" "}
-          <Link to='/login' className="text-blue-400 underline">LogIn</Link>
+          Already a member?{" "}
+          <Link to="/login" className="text-blue-400 underline">
+            LogIn
+          </Link>
         </h3>
       </div>
     </div>

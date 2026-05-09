@@ -5,29 +5,37 @@ import { Link, useNavigate } from "react-router-dom";
 import BACKEND_URL from "../api/url.js";
 
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  // Used for Login
   const handleLogIn = async (e) => {
     e.preventDefault();
 
-    setError("")
-    setLoading(true)
+    setError("");
+    setLoading(true);
 
-    const res = await BACKEND_URL.post('/user/login', {
-      email,
-      password
-    })
-    localStorage.setItem("token", res.data.accessToken)
-    navigate('/')
-    setLoading(false)
-  }
+    try {
+      const res = await BACKEND_URL.post("/user/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", res.data.accessToken);
+
+      navigate("/");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex justify-center items-center z-50">
@@ -69,15 +77,23 @@ const Login = () => {
           <p className="text-sm text-blue-400 underline float-right">
             Forget Password
           </p>
+          {error && (
+            <div className="text-red-600 text-sm px-3 py-px rounded-lg mb-4 text-center">
+              {error}
+            </div>
+          )}
           <button
             type="submit"
             className="bg-blue-500/50 w-full py-1 rounded-lg mb-3"
           >
-            {loading ? "Creating..." : "Log In"}
+            {loading ? "Logging In" : "Log In"}
           </button>
         </form>
         <h3 className="text-center text-sm">
-          Create a new account? <Link to='/signup' className="text-blue-400 underline">Sign Up</Link> 
+          Create a new account?{" "}
+          <Link to="/signup" className="text-blue-400 underline">
+            Sign Up
+          </Link>
         </h3>
       </div>
     </div>

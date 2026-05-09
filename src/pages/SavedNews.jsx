@@ -40,7 +40,7 @@ const SavedNews = () => {
   // to get the news saved by user on first render
   useEffect(() => {
     fetchSavedNews();
-  }, []);
+  }, [savedNews]);
 
   const divVarients = {
     show: {
