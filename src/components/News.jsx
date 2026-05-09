@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { easeIn, motion } from "motion/react";
 import NewsItem from "./NewsItem";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 import axios from "axios";
 import BACKEND_URL from "../api/url.js";
+import AdsterraBanner from "../utilis/AdsterraAd.jsx";
 
 const News = ({
   country = "in",
@@ -22,6 +23,10 @@ const News = ({
   const [result, setResult] = useState([]);
   const [nextPage, setNextPage] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+
+  const adGap = useMemo(() => {
+    return Math.floor(Math.random() * 5) + 2;
+  })
 
   // Fetching News From Backend
   const FetchNews = async () => {
@@ -117,26 +122,33 @@ const News = ({
         layout
         className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3 md:mt-7"
       >
-        {result.map((news) => {
+        {result.map((news, index) => {
           const pub_on = new Date(news.pubDate);
           return (
-            <motion.div variants={cardVariants} layout key={news.article_id}>
-              <NewsItem
-                article_id={news.article_id}
-                title={news.title?.slice(0, 46) || "Title not Present"}
-                description={
-                  news.description?.slice(0, 93) || "Description not Present"
-                }
-                source={news.source_name?.slice(0, 20) || "Unknown"}
-                image_url={news.image_url || FALLBACK_IMAGE}
-                month={pub_on.toLocaleString("en-US", { month: "short" })}
-                date={pub_on.getDate()}
-                year={pub_on.getFullYear()}
-                pubDate={news.pubDate}
-                link={news.link}
-                auth={auth}
-              />
-            </motion.div>
+            <React.Fragment key={news.article_id}>
+              <motion.div variants={cardVariants} layout key={news.article_id}>
+                <NewsItem
+                  article_id={news.article_id}
+                  title={news.title?.slice(0, 46) || "Title not Present"}
+                  description={
+                    news.description?.slice(0, 93) || "Description not Present"
+                  }
+                  source={news.source_name?.slice(0, 20) || "Unknown"}
+                  image_url={news.image_url || FALLBACK_IMAGE}
+                  month={pub_on.toLocaleString("en-US", { month: "short" })}
+                  date={pub_on.getDate()}
+                  year={pub_on.getFullYear()}
+                  pubDate={news.pubDate}
+                  link={news.link}
+                  auth={auth}
+                />
+              </motion.div>
+              {(index + 1) % adGap === 0 && (
+                <div>
+                  <AdsterraBanner />
+                </div>
+              )}
+            </React.Fragment>
           );
         })}
       </motion.div>

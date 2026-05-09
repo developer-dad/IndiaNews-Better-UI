@@ -21,6 +21,7 @@ const NavBar = ({
   setCategoryName,
   auth,
   setAuth,
+  topmargin
 }) => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
@@ -65,7 +66,7 @@ const NavBar = ({
         variants={divVarients}
         initial="hidden"
         animate="show"
-        className={`select-none bg-white/20 backdrop-blur-xl w-full min-h-18 mt-5 rounded-xl border border-white/25 md:mt-10`}
+        className={`select-none bg-white/20 backdrop-blur-xl w-full min-h-18 ${topmargin} rounded-xl border border-white/25 md:mt-10`}
       >
         {/* Div Holding Text, Logo & both Buttons together */}
         {!searchModal && (

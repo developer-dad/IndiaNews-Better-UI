@@ -66,7 +66,7 @@ const SavedNews = ({ auth, setAuth }) => {
 
   return (
     <>
-      <NavBar auth={auth} setAuth={setAuth} />
+      <NavBar topmargin={"mt-5"} auth={auth} setAuth={setAuth} />
 
       <motion.div
         variants={divVarients}
