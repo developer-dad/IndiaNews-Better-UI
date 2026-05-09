@@ -41,7 +41,7 @@ const App = () => {
           <Route path="/forget-password" element={<PasswordReset />} />
           <Route
             path="/savednews"
-            element={isAuth ? <SavedNews /> : <Navigate to={"/login"} />}
+            element={isAuth ? <SavedNews auth={isAuth} setAuth={setIsAuth}/> : <Navigate to={"/login"} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

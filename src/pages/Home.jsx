@@ -12,7 +12,7 @@ const Home = ({ auth, setAuth }) => {
   const [q, setQ] = useState(null);
   return (
     <>
-    <NavBar auth={auth} setAuth={setAuth}/>
+    <NavBar auth={auth} setAuth={setAuth} setCategory={setCategory} setCountry={setCountry} setQ={setQ} setCountryName={setCountryName} setCategoryName={setCategoryName}/>
     <CurrentNews countryName={countryName} categoryName={categoryName} q={q} />
     <News  country={country} category={category} q={q} setCountry={setCountry} setCategory={setCategory} setQ={setQ} auth={auth}/>
     </>

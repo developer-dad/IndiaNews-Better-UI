@@ -4,15 +4,19 @@ import NavBar from "../components/NavBar_Component/NavBar";
 import NewsItem from "../components/NewsItem";
 import BACKEND_URL from "../api/url";
 import EndMessage from "../components/EndMessage";
+import Loader from "../components/Loader.jsx";
 
-const SavedNews = () => {
-  const [savedNews, setSavedNews] = useState([]);
+const SavedNews = ({ auth, setAuth }) => {
+  const [savedNewsArr, setSavedNewsArr] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // To fetch the Saved News of the User from the DataBase
   const fetchSavedNews = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
 
     if (!token) {
+      setLoading(false);
       console.log("No token found");
       return;
     }
@@ -24,23 +28,26 @@ const SavedNews = () => {
         },
       });
 
-      setSavedNews(res.data.data || []);
+      setSavedNewsArr(res.data.data || []);
+      setLoading(false);
     } catch (error) {
       console.log("Error fetching saved news:", error.response?.data || error);
+    } finally {
+      setLoading(false);
     }
   };
 
   // To Remove the Unsaved News from UI
   const removeNewsFromUI = (article_id) => {
-    setSavedNews((prev) => 
-    prev.filter((news) => news.article_id !== article_id)
-  )
-  }
+    setSavedNewsArr((prev) =>
+      prev.filter((news) => news.article_id !== article_id),
+    );
+  };
 
   // to get the news saved by user on first render
   useEffect(() => {
     fetchSavedNews();
-  }, [savedNews]);
+  }, []);
 
   const divVarients = {
     show: {
@@ -59,7 +66,7 @@ const SavedNews = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar auth={auth} setAuth={setAuth} />
 
       <motion.div
         variants={divVarients}
@@ -77,7 +84,7 @@ const SavedNews = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3 md:mt-7">
-        {savedNews.map((news) => {
+        {savedNewsArr.map((news) => {
           const pub_on = new Date(news.pubDate);
 
           return (
@@ -102,9 +109,17 @@ const SavedNews = () => {
         })}
       </div>
 
-      <EndMessage msg={
-        savedNews.length == 0 ? "Save Your First News" : "You have Reached the End!"
-      }/>
+      {loading && <Loader paddingY={"py-6"} />}
+
+      {!loading && (
+        <EndMessage
+          msg={
+            savedNewsArr.length == 0
+              ? "Save Your First News"
+              : "You have Reached the End!"
+          }
+        />
+      )}
     </>
   );
 };

@@ -9,7 +9,7 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { LABEL } from "../../Data/assets";
 import DropDown from "./DropDown";
 import { CiBookmark } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
 
@@ -28,6 +28,14 @@ const NavBar = ({
   const [labelClicked, setLabelClicked] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
+
+  const navigate = useNavigate()
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token")
+    setAuth(false)
+    window.location.href = "/"
+  }
 
   useEffect(() => {
     if (searchModal) {
@@ -161,7 +169,7 @@ const NavBar = ({
 
               {/* Login / Signup */}
               <Link
-                to="/login"
+                onClick={auth ? handleLogOut : () => navigate('/login')}
                 className="px-4 py-1.5 rounded-full bg-blue-600/70 hover:bg-blue-600 text-white text-sm font-medium border border-blue-300/40 shadow-lg shadow-blue-500/30 transition"
               >
                 {auth ? <div className="flex justify-center items-center gap-1.5">
