@@ -8,6 +8,10 @@ import { IoMdClose } from "react-icons/io";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { LABEL } from "../../Data/assets";
 import DropDown from "./DropDown";
+import { CiBookmark } from "react-icons/ci";
+import { Link } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
+import { FaGoogle } from "react-icons/fa";
 
 const NavBar = ({
   setCountry,
@@ -16,7 +20,7 @@ const NavBar = ({
   setCountryName,
   setCategoryName,
   auth,
-  setAuth
+  setAuth,
 }) => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
@@ -128,17 +132,14 @@ const NavBar = ({
               </div>
             </div>
 
-            {/* Search Input For Desktop */}
-            <div className="hidden md:block">
+            {/* Search + Actions For Desktop */}
+            <div className="hidden md:flex items-center gap-3">
+              {/* Search Input */}
               <div className="relative flex items-center">
                 <IoSearchSharp className="absolute size-6 text-white mx-2 cursor-pointer" />
                 <input
                   type="text"
                   value={inputValue}
-                  onSubmit={() => {
-                    setCountry("in");
-                    setCategory("top");
-                  }}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -146,9 +147,31 @@ const NavBar = ({
                     }
                   }}
                   placeholder="Search..."
-                  className="focus:outline-blue-600 py-1.5 px-9 rounded-full placeholder:text-white/75 border border-white shadow-lg shadow-white/25 text-white"
+                  className="focus:outline-blue-600 py-1.5 px-9 rounded-full placeholder:text-white/75 border border-white/40 shadow-lg shadow-white/20 text-white bg-white/10"
                 />
               </div>
+
+              {/* Saved News */}
+              <Link
+                to="/savednews"
+                className="flex items-center gap-1.5 p-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/40 text-white shadow-lg shadow-white/20 transition"
+              >
+                <CiBookmark size={21} />
+              </Link>
+
+              {/* Login / Signup */}
+              <Link
+                to="/login"
+                className="px-4 py-1.5 rounded-full bg-blue-600/70 hover:bg-blue-600 text-white text-sm font-medium border border-blue-300/40 shadow-lg shadow-blue-500/30 transition"
+              >
+                {auth ? <div className="flex justify-center items-center gap-1.5">
+                  <FiLogOut/>
+                  <p>Log Out</p>
+                </div> : <div className="flex justify-center items-center gap-1.5">
+                  <FaGoogle />
+                  <p>LogIn / SignUp</p>
+                </div>}
+              </Link>
             </div>
           </div>
         )}
