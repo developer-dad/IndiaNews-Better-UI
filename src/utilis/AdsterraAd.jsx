@@ -10,17 +10,17 @@ const AdsterraBanner = () => {
     configScript.type = "text/javascript";
     configScript.innerHTML = `
       atOptions = {
-        key: '85dac19641f64b9342ab7bd3d437a972',
+        key: 'a7eadd51a7731ab1d7609915382b10ed',
         format: 'iframe',
-        height: 200,
-        width: 300,
+        height: 60,
+        width: 468,
         params: {}
       };
     `;
 
     const invokeScript = document.createElement("script");
     invokeScript.type = "text/javascript";
-    invokeScript.src = "//www.highperformanceformat.com/85dac19641f64b9342ab7bd3d437a972/invoke.js";
+    invokeScript.src = "//www.highperformanceformat.com/a7eadd51a7731ab1d7609915382b10ed/invoke.js";
     invokeScript.async = true;
 
     adRef.current.appendChild(configScript);
@@ -31,7 +31,7 @@ const AdsterraBanner = () => {
     };
   }, []);
 
-  return <div ref={adRef}></div>;
+  return <div ref={adRef} className="w-full flex justify-center items-center"></div>;
 };
 
 export default AdsterraBanner;

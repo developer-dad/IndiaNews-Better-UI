@@ -7,6 +7,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FiLogOut } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
+import AdsterraBanner from "../../utilis/AdsterraAd";
 
 const Menu = ({
   modal,
@@ -17,23 +18,23 @@ const Menu = ({
   setMenuModal,
   setOpenDropDown,
   auth,
-  setAuth
+  setAuth,
 }) => {
   const [labelClicked, setLabelClicked] = useState(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
-    localStorage.removeItem("token")
-    setAuth(false)
-    navigate('/')
-    setMenuModal(false)
-  }
+    localStorage.removeItem("token");
+    setAuth(false);
+    navigate("/");
+    setMenuModal(false);
+  };
 
   const handleLogIn = () => {
-    navigate('/login')
-    setMenuModal(false)
-  }
+    navigate("/login");
+    setMenuModal(false);
+  };
 
   const menuVariant = {
     hidden: {
@@ -82,8 +83,8 @@ const Menu = ({
                     onClick={() => {
                       setOpenDropDown(false);
                       setMenuModal?.(false);
-                        setCountry(country.code);
-                        setCountryName(country.name);
+                      setCountry(country.code);
+                      setCountryName(country.name);
                     }}
                   >
                     <img
@@ -113,8 +114,8 @@ const Menu = ({
                     onClick={() => {
                       setOpenDropDown(false);
                       setMenuModal?.(false);
-                        setCategory(category.code);
-                        setCategoryName(category.name);
+                      setCategory(category.code);
+                      setCategoryName(category.name);
                     }}
                   >
                     <img
@@ -139,14 +140,24 @@ const Menu = ({
             </Link>
 
             {/* Log Out */}
-            <div onClick={auth ? handleLogOut : handleLogIn} className={`flex justify-center items-center gap-1.5 w-full border border-white/45 rounded-lg text-center py-1 bg-blue-600/75 text-white mt-3`}>
-              {auth ? <>
-                <FiLogOut size={25} />
-                <p>Log Out</p>
-              </> : <>
-                <CiLogin size={25}/>
-                LogIn / SignUp
-              </>}
+            <div
+              onClick={auth ? handleLogOut : handleLogIn}
+              className={`flex justify-center items-center gap-1.5 w-full border border-white/45 rounded-lg text-center py-1 bg-blue-600/75 text-white mt-3`}
+            >
+              {auth ? (
+                <>
+                  <FiLogOut size={25} />
+                  <p>Log Out</p>
+                </>
+              ) : (
+                <>
+                  <CiLogin size={25} />
+                  LogIn / SignUp
+                </>
+              )}
+            </div>
+            <div className="w-full mt-3 flex justify-center items-center border border-white/45 bg-white/45 overflow-hidden">
+              <AdsterraBanner />
             </div>
           </motion.div>
         </>
