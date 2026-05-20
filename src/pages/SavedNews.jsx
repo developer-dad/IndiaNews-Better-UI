@@ -6,7 +6,7 @@ import BACKEND_URL from "../api/url";
 import EndMessage from "../components/EndMessage";
 import Loader from "../components/Loader.jsx";
 
-const SavedNews = ({ auth, setAuth }) => {
+const SavedNews = ({ auth, setAuth, setCountry, setCategory, setQ, setCategoryName, setCountryName }) => {
   const [savedNewsArr, setSavedNewsArr] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +66,7 @@ const SavedNews = ({ auth, setAuth }) => {
 
   return (
     <>
-      <NavBar topmargin={"mt-5"} auth={auth} setAuth={setAuth} />
+      <NavBar topmargin={"mt-5"} auth={auth} setAuth={setAuth} setCountry={setCountry} setCategory={setCategory} setQ={setQ} setCategoryName={setCategoryName} setCountryName={setCountryName} />
 
       <motion.div
         variants={divVarients}
@@ -109,7 +109,7 @@ const SavedNews = ({ auth, setAuth }) => {
         })}
       </div>
 
-      {loading && <Loader paddingY={"py-6"} />}
+      {loading && <><Loader /><Loader /><Loader /></>}
 
       {!loading && (
         <EndMessage

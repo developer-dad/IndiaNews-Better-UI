@@ -5,12 +5,7 @@ import { useState } from 'react';
 import News from '../components/News';
 import Greeting from '../utilis/Greeting.jsx';
 
-const Home = ({ auth, setAuth }) => {
-  const [country, setCountry] = useState("in");
-  const [countryName, setCountryName] = useState("India");
-  const [category, setCategory] = useState("top");
-  const [categoryName, setCategoryName] = useState("Top");
-  const [q, setQ] = useState(null);
+const Home = ({ auth, setAuth, setCountry, setCategory, setQ, setCountryName, setCategoryName, country, category, countryName, categoryName, q }) => {
   return (
     <>
     <Greeting auth={auth}/>

@@ -7,7 +7,6 @@ import { CiBookmark } from "react-icons/ci";
 import { FiLogOut } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
-import AdsterraBanner from "../../utilis/AdsterraAd";
 
 const Menu = ({
   modal,
@@ -155,9 +154,6 @@ const Menu = ({
                   LogIn / SignUp
                 </>
               )}
-            </div>
-            <div className="w-full mt-3 flex justify-center items-center border border-white/45 bg-white/45 overflow-hidden">
-              <AdsterraBanner />
             </div>
           </motion.div>
         </>

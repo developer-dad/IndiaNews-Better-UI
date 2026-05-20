@@ -10,6 +10,12 @@ import PasswordReset from "./pages/PasswordReset";
 const App = () => {
   const [isAuth, setIsAuth] = useState(!!localStorage.getItem("token"));
 
+  const [country, setCountry] = useState("in");
+  const [countryName, setCountryName] = useState("India");
+  const [category, setCategory] = useState("top");
+  const [categoryName, setCategoryName] = useState("Top");
+  const [q, setQ] = useState(null);
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background Layer */}
@@ -24,26 +30,32 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Home auth={isAuth} setAuth={setIsAuth} />}
+            element={<Home country={country} category={category} countryName={countryName} categoryName={categoryName} q={q} setCategory={setCategory} setCountry={setCountry} setQ={setQ} setCountryName={setCountryName} setCategoryName={setCategoryName} auth={isAuth} setAuth={setIsAuth} />}
           />
           <Route
             path="/login"
             element={
-              isAuth ? <Home auth={isAuth} setAuth={setIsAuth} /> : <Login />
+              isAuth ? <Home country={country} category={category} countryName={countryName} categoryName={categoryName} q={q} setCategory={setCategory} setCountry={setCountry} setQ={setQ} setCountryName={setCountryName} setCategoryName={setCategoryName} auth={isAuth} setAuth={setIsAuth} /> : <Login />
             }
           />
           <Route
             path="/signup"
             element={
-              isAuth ? <Home auth={isAuth} setAuth={setIsAuth} /> : <SignUp />
+              isAuth ? <Home country={country} category={category} countryName={countryName} categoryName={categoryName} q={q} setCategory={setCategory} setCountry={setCountry} setQ={setQ} setCountryName={setCountryName} setCategoryName={setCategoryName} auth={isAuth} setAuth={setIsAuth} /> : <SignUp />
             }
           />
           <Route path="/forget-password" element={<PasswordReset />} />
           <Route
             path="/savednews"
-            element={isAuth ? <SavedNews auth={isAuth} setAuth={setIsAuth}/> : <Navigate to={"/login"} />}
+            element={
+              isAuth ? (
+                <SavedNews auth={isAuth} setAuth={setIsAuth} setCountry={setCountry} setCategory={setCategory} setQ={setQ} setCategoryName={setCategoryName} setCountryName={setCountryName} />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
           />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
     </div>

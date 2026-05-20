@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import BACKEND_URL from "../api/url.js";
 import Spinner from "./Spinner.jsx";
+import Toast from "./Toast.jsx";
 
 const NewsItem = ({
   image_url,
@@ -29,6 +30,8 @@ const NewsItem = ({
   const [loading, setLoading] = useState(false);
   const [showLikeAnimation, setShowLikeAnimation] = useState(false);
 
+  const [showToast, setShowToast] = useState(false);
+
   const naviagte = useNavigate();
 
   // Function to save a News when Clicked Save or Double Clicked Card
@@ -40,7 +43,13 @@ const NewsItem = ({
 
     // Check if LoggedIn or not
     if (!token) {
-      naviagte("/login");
+      setShowToast(true)
+      setLoading(false)
+
+      setTimeout(() => {
+        setShowToast(false)
+      }, 3000)
+
       return;
     }
 
@@ -76,7 +85,13 @@ const NewsItem = ({
 
     // Validate token
     if (!token) {
-      naviagte("/login");
+      setShowToast(true)
+      setLoading(false)
+
+      setTimeout(() => {
+        setShowToast(false)
+      }, 3000)
+
       return;
     }
 
@@ -134,7 +149,7 @@ const NewsItem = ({
             onClick={saved ? handleUnsaveNews : handleSaveNews}
             className={`bg-white/50 p-1 border border-white/75 rounded-lg`}
           >
-            {loading ? (
+            {loading && saved ? (
               <Spinner size={20} />
             ) : saved ? (
               <FaBookmark size={18} color="black" />
@@ -177,6 +192,9 @@ const NewsItem = ({
           <FaBookmark className="text-white drop-shadow-2xl" size={90} />
         </motion.div>
       )}
+      <div className="relative w-screen h-screen">
+      {showToast && <Toast />}
+      </div>
     </motion.div>
   );
 };

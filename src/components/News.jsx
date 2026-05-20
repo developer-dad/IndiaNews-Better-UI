@@ -6,7 +6,6 @@ import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 import axios from "axios";
 import BACKEND_URL from "../api/url.js";
-import AdsterraBanner from "../utilis/AdsterraAd.jsx";
 
 const News = ({
   country = "in",
@@ -104,7 +103,7 @@ const News = ({
       dataLength={result.length}
       next={FetchNews}
       hasMore={hasMore}
-      loader={<Loader paddingY="py-10" />}
+      loader={<><Loader /><Loader /><Loader /></>}
       endMessage={
         <EndMessage
           msg={
@@ -143,11 +142,6 @@ const News = ({
                   auth={auth}
                 />
               </motion.div>
-              {(index + 1) % adGap === 0 && (
-                <div>
-                  <AdsterraBanner />
-                </div>
-              )}
             </React.Fragment>
           );
         })}
