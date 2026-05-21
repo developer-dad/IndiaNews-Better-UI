@@ -21,28 +21,53 @@ const NavBar = ({
   setCategoryName,
   auth,
   setAuth,
-  topmargin
+  topmargin,
 }) => {
   const [searchModal, setSearchModal] = useState(false);
   const [menuModal, setMenuModal] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const [labelClicked, setLabelClicked] = useState(null);
   const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
-    localStorage.removeItem("token")
-    setAuth(false)
-    window.location.href = "/"
-  }
+    localStorage.removeItem("token");
+    setAuth(false);
+    window.location.href = "/";
+  };
 
   useEffect(() => {
     if (searchModal) {
       inputRef.current?.focus();
     }
   }, [searchModal]);
+
+  // Used for Login
+  const handleLogIn = async (e) => {
+    e.preventDefault();
+
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await BACKEND_URL.post("/user/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", res.data.accessToken);
+
+      navigate("/");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const divVarients = {
     show: {
@@ -170,16 +195,20 @@ const NavBar = ({
 
               {/* Login / Signup */}
               <Link
-                onClick={auth ? handleLogOut : () => navigate('/login')}
+                onClick={auth ? handleLogOut : () => navigate("/login")}
                 className="px-4 py-1.5 rounded-full bg-blue-600/70 hover:bg-blue-600 text-white text-sm font-medium border border-blue-300/40 shadow-lg shadow-blue-500/30 transition"
               >
-                {auth ? <div className="flex justify-center items-center gap-1.5">
-                  <FiLogOut/>
-                  <p>Log Out</p>
-                </div> : <div className="flex justify-center items-center gap-1.5">
-                  <FaGoogle />
-                  <p>LogIn / SignUp</p>
-                </div>}
+                {auth ? (
+                  <div onClick={handleLogOut} className="flex justify-center items-center gap-1.5">
+                    <FiLogOut />
+                    <p>Log Out</p>
+                  </div>
+                ) : (
+                  <Link to="/login" className="flex justify-center items-center gap-1.5">
+                    <FaGoogle />
+                    <p>LogIn / SignUp</p>
+                  </Link>
+                )}
               </Link>
             </div>
           </div>
